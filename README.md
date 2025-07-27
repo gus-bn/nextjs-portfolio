@@ -1,8 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Portfolio
+
+A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features smooth scrolling navigation, dark/light theme support, and a clean, professional design.
+
+## Features
+
+- **Modern Stack**: Built with Next.js 15, React 19, and TypeScript
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Theme Support**: Dark/light mode toggle with next-themes
+- **Smooth Navigation**: Scroll-based navigation between sections
+- **Performance Optimized**: Uses Turbopack for fast development
+- **Accessibility**: Built with accessibility best practices
+- **Form Handling**: React Hook Form with Zod validation
+- **Animations**: Framer Motion for smooth transitions
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Custom components with Lucide React icons
+- **Theme**: next-themes for dark/light mode
+- **Forms**: React Hook Form with Zod validation
+- **Animations**: Framer Motion
+- **Development**: Turbopack for fast builds
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/
+│   ├── layout/            # Layout components
+│   │   └── Header.tsx     # Navigation header
+│   ├── sections/          # Page sections
+│   │   └── Hero.tsx       # Hero section
+│   ├── theme/             # Theme components
+│   │   ├── ThemeProvider.tsx
+│   │   └── ThemeToggle.tsx
+│   └── ui/                # Reusable UI components
+│       └── button.tsx
+├── hooks/                 # Custom React hooks
+│   ├── use-scroll.ts      # Scroll position hook
+│   └── use-theme.ts       # Theme management hook
+├── lib/                   # Utility functions
+│   ├── constants.ts       # App constants
+│   └── utils.ts           # Helper utilities
+└── types/                 # TypeScript type definitions
+    └── index.ts
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
@@ -14,23 +86,83 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build the application for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run ESLint for code quality
 
-## Learn More
+## Sections
 
-To learn more about Next.js, take a look at the following resources:
+The portfolio includes the following sections:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Hero**: Introduction and main call-to-action
+- **About**: Personal information and background
+- **Experience**: Work history and achievements
+- **Skills**: Technical skills and expertise
+- **Contact**: Contact information and form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Customization
 
-## Deploy on Vercel
+### Adding New Sections
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a new component in `src/components/sections/`
+2. Import and add it to `src/app/page.tsx`
+3. Update navigation in `src/components/layout/Header.tsx`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Styling
+
+- Global styles: `src/app/globals.css`
+- Tailwind config: `tailwind.config.ts`
+- Component-specific styles: Use Tailwind classes
+
+### Theme Customization
+
+The theme system supports:
+
+- CSS custom properties for colors
+- Automatic dark/light mode detection
+- Manual theme toggle
+- System preference respect
+
+## Deployment
+
+### Vercel (Recommended)
+
+The easiest way to deploy is using [Vercel](https://vercel.com/new):
+
+1. Push your code to GitHub
+2. Import your repository in Vercel
+3. Deploy with zero configuration
+
+### Other Platforms
+
+This Next.js app can be deployed on any platform that supports Node.js:
+
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## Performance
+
+- Uses Next.js 15 with Turbopack for fast development
+- Optimized fonts with `next/font`
+- Image optimization with `next/image`
+- CSS-in-JS with zero runtime overhead
+- Tree-shaking for minimal bundle size
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
