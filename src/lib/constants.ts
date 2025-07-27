@@ -9,7 +9,7 @@ export const SITE_CONFIG = {
     twitter: 'https://twitter.com/gustavobeauregard',
     github: 'https://github.com/gustavobeauregard',
     linkedin: 'https://linkedin.com/in/gustavobeauregard',
-    email: 'mailto:gustavo@example.com',
+    email: 'mailto:gustavo@thegurucompany.com',
     resume: '/resume.pdf',
   },
   location: 'San Francisco, CA',
