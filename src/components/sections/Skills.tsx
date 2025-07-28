@@ -11,6 +11,7 @@ import {
   Star,
   TrendingUp,
   Award,
+  Bot,
 } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -91,9 +92,9 @@ const Skills = () => {
           description: 'Ambitious web applications',
         },
         {
-          name: 'Sunview.js',
-          level: 'Advanced',
-          description: 'Custom framework expertise',
+          name: 'Next.js',
+          level: 'Expert',
+          description: 'Full-stack React framework',
         },
         {
           name: 'Admin Dashboards',
@@ -138,6 +139,46 @@ const Skills = () => {
           name: 'React Native',
           level: 'Advanced',
           description: 'Cross-platform mobile apps',
+        },
+      ],
+    },
+    {
+      title: 'AI Automations',
+      icon: Bot,
+      description:
+        'Building intelligent automation systems and AI-powered solutions',
+      color: 'from-cyan-500/20 to-indigo-500/20',
+      iconColor: 'text-cyan-400',
+      skills: [
+        {
+          name: 'n8n Workflows',
+          level: 'Expert',
+          description: 'Complex automation workflows & integrations',
+        },
+        {
+          name: 'AI Agents',
+          level: 'Advanced',
+          description: 'Intelligent autonomous systems',
+        },
+        {
+          name: 'MCP Servers',
+          level: 'Advanced',
+          description: 'Model Context Protocol implementations',
+        },
+        {
+          name: 'Voice Assistants',
+          level: 'Advanced',
+          description: 'Conversational AI interfaces',
+        },
+        {
+          name: 'Process Automation',
+          level: 'Expert',
+          description: 'Business workflow optimization',
+        },
+        {
+          name: 'API Orchestration',
+          level: 'Expert',
+          description: 'Complex service integrations',
         },
       ],
     },
