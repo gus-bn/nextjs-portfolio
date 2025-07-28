@@ -66,9 +66,17 @@ export const metadata: Metadata = {
         url: SITE_CONFIG.ogImage,
         width: 1200,
         height: 630,
-        alt: `${SITE_CONFIG.name} - ${SITE_CONFIG.title}`,
+        alt: `${SITE_CONFIG.name} - AI Specialist | 18+ Years Experience | 40+ Team Leader`,
+        type: 'image/png',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    creator: '@gus_bn',
+    images: [SITE_CONFIG.ogImage],
   },
   robots: {
     index: true,
