@@ -6,10 +6,9 @@ export const SITE_CONFIG = {
   url: 'https://gustavobeauregard.com',
   ogImage: '/og-image.jpg',
   links: {
-    twitter: 'https://twitter.com/gustavobeauregard',
     github: 'https://github.com/gustavobeauregard',
-    linkedin: 'https://linkedin.com/in/gustavobeauregard',
-    email: 'mailto:gustavo@thegurucompany.com',
+    linkedin: 'https://linkedin.com/in//gus-beauregard',
+    email: 'mailto:gustavo.beauregard.noriega@gmail.com',
     resume: '/resume.pdf',
   },
   location: 'San Francisco, CA',

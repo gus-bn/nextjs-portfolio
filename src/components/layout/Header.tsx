@@ -2,15 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Menu,
-  X,
-  Github,
-  Linkedin,
-  Twitter,
-  Mail,
-  FileText,
-} from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import {
   useScroll,
@@ -101,12 +93,6 @@ export function Header() {
       href: SITE_CONFIG.links.linkedin,
       icon: Linkedin,
       label: 'Connect on LinkedIn',
-    },
-    {
-      name: 'Twitter',
-      href: SITE_CONFIG.links.twitter,
-      icon: Twitter,
-      label: 'Follow on Twitter',
     },
     {
       name: 'Email',

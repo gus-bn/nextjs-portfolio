@@ -247,11 +247,11 @@ const Skills = () => {
   const getLevelColor = (level: string) => {
     switch (level) {
       case 'Expert':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20 hover:border-emerald-500/40';
+        return 'bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700 hover:border-emerald-700 shadow-sm shadow-emerald-500/20';
       case 'Advanced':
-        return 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20 hover:border-blue-500/40';
+        return 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm shadow-blue-500/20';
       case 'Intermediate':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20 hover:border-amber-500/40';
+        return 'bg-amber-600 text-white border-amber-600 hover:bg-amber-700 hover:border-amber-700 shadow-sm shadow-amber-500/20';
       default:
         return 'bg-muted/10 text-muted-foreground border-border/20';
     }
@@ -429,7 +429,7 @@ const Skills = () => {
                           key={skill.name}
                           variants={skillVariants}
                           custom={skillIndex}
-                          className="group/skill relative p-4 rounded-xl bg-secondary/30 border border-border/30 transition-all duration-300 hover:bg-secondary/50 hover:scale-[1.02] hover:border-primary/30 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary/50"
+                          className="group/skill relative p-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/40 transition-all duration-300 hover:bg-card/80 hover:scale-[1.02] hover:border-primary/30 hover:shadow-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary/50"
                           onMouseEnter={() => setHoveredSkill(skillKey)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           tabIndex={0}

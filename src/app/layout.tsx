@@ -70,14 +70,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
-    images: [SITE_CONFIG.ogImage],
-    creator: '@gustavobeauregard',
-    site: '@gustavobeauregard',
-  },
   robots: {
     index: true,
     follow: true,

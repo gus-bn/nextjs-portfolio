@@ -124,7 +124,10 @@ const About = () => {
           {/* Main Content */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
             {/* Story */}
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div
+              variants={itemVariants}
+              className="space-y-6 text-center lg:text-left"
+            >
               <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
                 CTO, Founder & Tech Evangelist
               </h3>
@@ -175,7 +178,7 @@ const About = () => {
               {/* Professional Image */}
               <motion.div
                 variants={itemVariants}
-                className="mt-8 flex justify-center lg:justify-start"
+                className="mt-8 flex justify-center"
               >
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary/20 shadow-lg">
                   {!imageError ? (

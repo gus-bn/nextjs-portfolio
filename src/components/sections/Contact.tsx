@@ -71,9 +71,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'gustavo@thegurucompany.com',
+      value: 'gustavo.beauregard.noriega@gmail.com',
       description: 'Drop me a line anytime',
-      href: 'mailto:gustavo@thegurucompany.com',
+      href: 'mailto:gustavo.beauregard.noriega@gmail.com',
       external: false,
     },
     {
@@ -95,9 +95,9 @@ const Contact = () => {
     {
       icon: Globe,
       title: 'Website',
-      value: 'thegurucompany.com',
+      value: 'gbn.dev',
       description: 'Learn more about my work',
-      href: 'https://thegurucompany.com',
+      href: 'https://gbn.dev',
       external: true,
     },
   ];
@@ -617,7 +617,7 @@ const Contact = () => {
                       I typically respond within 24 hours. For urgent matters,
                       feel free to reach out via{' '}
                       <a
-                        href="mailto:gustavo@thegurucompany.com"
+                        href="mailto:gustavo.beauregard.noriega@gmail.com"
                         className="text-primary hover:underline font-medium"
                       >
                         email
