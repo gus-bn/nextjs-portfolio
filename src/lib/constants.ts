@@ -3,10 +3,10 @@ export const SITE_CONFIG = {
   title: 'CTO, Founder & Tech Evangelist',
   description:
     'Portfolio of Gustavo Beauregard - CTO, Founder & Tech Evangelist specializing in full-stack development, team leadership, and technology innovation.',
-  url: 'https://gustavobeauregard.com',
+  url: 'https://www.gusb.dev/',
   ogImage: '/og-image.jpg',
   links: {
-    github: 'https://github.com/gustavobeauregard',
+    github: 'https://github.com/gus-bn',
     linkedin: 'https://linkedin.com/in//gus-beauregard',
     email: 'mailto:gustavo.beauregard.noriega@gmail.com',
     resume: '/resume.pdf',

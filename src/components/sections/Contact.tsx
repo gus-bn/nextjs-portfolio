@@ -98,9 +98,9 @@ const Contact = () => {
     {
       icon: Globe,
       title: 'Website',
-      value: 'gbn.dev',
+      value: 'gusb.dev',
       description: 'Learn more about my work',
-      href: 'https://gbn.dev',
+      href: 'https://www.gusb.dev/',
       external: true,
     },
   ];
