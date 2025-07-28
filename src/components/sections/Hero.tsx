@@ -177,13 +177,13 @@ const Hero = () => {
               CTO, Founder & Tech Evangelist
             </h2>
             <div className="flex flex-wrap justify-center gap-3 text-sm font-medium">
-              <span className="px-4 py-2 bg-secondary/10 text-secondary-foreground rounded-full border border-secondary/20">
+              <span className="px-4 py-2 bg-secondary/20 text-secondary border border-secondary/30">
                 AI Specialist
               </span>
-              <span className="px-4 py-2 bg-accent/10 text-accent-foreground rounded-full border border-accent/20">
+              <span className="px-4 py-2 bg-accent/20 text-accent border border-accent/30">
                 18+ Years Experience
               </span>
-              <span className="px-4 py-2 bg-primary/10 text-primary-foreground rounded-full border border-primary/20">
+              <span className="px-4 py-2 bg-primary/10 text-primary border border-primary/30">
                 40+ Team Leader
               </span>
             </div>

@@ -217,21 +217,21 @@ const Experience = () => {
     switch (color) {
       case 'secondary':
         return {
-          dot: 'bg-secondary-foreground',
-          icon: 'text-secondary-foreground',
-          tag: 'bg-secondary/10 text-secondary-foreground border-secondary/20',
+          dot: 'bg-secondary',
+          icon: 'text-secondary',
+          tag: 'bg-secondary/10 text-secondary border-secondary/20',
         };
       case 'accent':
         return {
-          dot: 'bg-accent-foreground',
-          icon: 'text-accent-foreground',
-          tag: 'bg-accent/10 text-accent-foreground border-accent/20',
+          dot: 'bg-accent',
+          icon: 'text-accent',
+          tag: 'bg-accent/10 text-accent border-accent/20',
         };
       default:
         return {
-          dot: 'bg-primary-foreground',
-          icon: 'text-primary-foreground',
-          tag: 'bg-primary/10 text-primary-foreground border-primary/20',
+          dot: 'bg-primary',
+          icon: 'text-primary',
+          tag: 'bg-primary/10 text-primary border-primary/20',
         };
     }
   };
@@ -372,9 +372,7 @@ const Experience = () => {
                         <motion.ul
                           className="space-y-2"
                           initial="hidden"
-                          animate={
-                            hoveredCard === exp.id ? 'visible' : 'hidden'
-                          }
+                          animate="visible"
                           variants={{
                             visible: {
                               transition: {
@@ -414,9 +412,7 @@ const Experience = () => {
                         <motion.div
                           className="flex flex-wrap gap-2"
                           initial="hidden"
-                          animate={
-                            hoveredCard === exp.id ? 'visible' : 'hidden'
-                          }
+                          animate="visible"
                           variants={{
                             visible: {
                               transition: {

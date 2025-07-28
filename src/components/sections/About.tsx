@@ -16,7 +16,7 @@ const About = () => {
       icon: Code,
       title: '18+ Years',
       description: 'In scalable application development',
-      color: 'text-secondary-foreground',
+      color: 'text-secondary',
       bgColor: 'bg-secondary/10',
       hoverBg: 'hover:bg-secondary/20',
     },
@@ -24,7 +24,7 @@ const About = () => {
       icon: Users,
       title: '40+ Engineers',
       description: 'Successfully led teams',
-      color: 'text-accent-foreground',
+      color: 'text-accent',
       bgColor: 'bg-accent/10',
       hoverBg: 'hover:bg-accent/20',
     },
@@ -32,7 +32,7 @@ const About = () => {
       icon: Lightbulb,
       title: '15+ Products',
       description: 'SaaS solutions launched',
-      color: 'text-primary-foreground',
+      color: 'text-primary',
       bgColor: 'bg-primary/10',
       hoverBg: 'hover:bg-primary/20',
     },
@@ -40,7 +40,7 @@ const About = () => {
       icon: Award,
       title: '3M+ Users',
       description: 'Monthly active users served',
-      color: 'text-secondary-foreground',
+      color: 'text-secondary',
       bgColor: 'bg-secondary/10',
       hoverBg: 'hover:bg-secondary/20',
     },
@@ -135,16 +135,16 @@ const About = () => {
                   variants={itemVariants}
                 >
                   With over 18 years in technology leadership, I specialize in
-                  <span className="text-secondary-foreground font-semibold">
+                  <span className="text-secondary font-semibold">
                     {' '}
                     AI transformation
                   </span>{' '}
                   and
-                  <span className="text-accent-foreground font-semibold">
+                  <span className="text-accent font-semibold">
                     {' '}
                     enterprise architecture
                   </span>
-                  . My journey spans from launching Mexico&apos;s first MVNO to
+                  . My journey spans from launching Mexico's first MVNO to
                   pioneering AI-powered SaaS solutions.
                 </motion.p>
 
@@ -153,7 +153,7 @@ const About = () => {
                   variants={itemVariants}
                 >
                   As CTO and Co-Founder of{' '}
-                  <span className="text-primary-foreground font-semibold">
+                  <span className="text-primary font-semibold">
                     TheGurúCompany
                   </span>
                   , I&apos;ve built comprehensive AI microservices architectures
@@ -267,19 +267,19 @@ const About = () => {
                   year: '2020',
                   description:
                     'Co-founded TheGurúCompany, launched first AI SaaS product',
-                  color: 'text-secondary-foreground',
+                  color: 'text-secondary',
                 },
                 {
                   year: '2017',
                   description:
-                    'Launched Mexico&apos;s first MVNO with 25K+ active customers',
-                  color: 'text-accent-foreground',
+                    "Launched Mexico's first MVNO with 25K+ active customers",
+                  color: 'text-accent',
                 },
                 {
                   year: '2013',
                   description:
                     'MIT Megacity Logistics Lab contributor, ITESM graduate',
-                  color: 'text-primary-foreground',
+                  color: 'text-primary',
                 },
               ].map((achievement, index) => (
                 <motion.div
