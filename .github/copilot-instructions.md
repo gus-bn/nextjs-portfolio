@@ -4,6 +4,24 @@
 
 This is a professional portfolio built with Next.js 15, featuring a single-page application with smooth scroll navigation, dark/light theme support, and advanced contact form handling. The codebase follows modern React patterns with TypeScript strict mode and comprehensive accessibility features.
 
+## Copilot Workflow Requirements
+
+**CRITICAL: After every completed task, ALWAYS perform the following validation steps:**
+
+1. **Build verification**: Execute `npm run build` to ensure the project compiles successfully
+2. **Error handling**: If either command fails, fix all issues before considering the task complete
+
+These steps are mandatory for maintaining code quality and ensuring the project remains in a deployable state.
+
+## Architecture & Key Patterns
+
+### Configuration-Driven Design
+
+2. **Build verification**: Execute `npm run build` to ensure the project compiles successfully
+3. **Error handling**: If either command fails, fix all issues before considering the task complete
+
+These steps are mandatory for maintaining code quality and ensuring the project remains in a deployable state.
+
 ## Architecture & Key Patterns
 
 ### Configuration-Driven Design

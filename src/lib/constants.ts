@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
     email: 'mailto:gustavo.beauregard.noriega@gmail.com',
     resume: '/resume.pdf',
   },
-  location: 'San Francisco, CA',
+  location: 'Querétaro, MX',
   availability: 'Available for new opportunities',
 } as const;
 
