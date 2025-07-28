@@ -132,12 +132,7 @@ export function Header() {
               aria-label="Scroll to top"
             >
               <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                {SITE_CONFIG.name.split(' ').map((word, index) => (
-                  <span key={index}>
-                    {word.charAt(0)}
-                    {index < SITE_CONFIG.name.split(' ').length - 1 && ''}
-                  </span>
-                ))}
+                GB
               </span>
             </motion.button>
 

@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  name: 'Gustavo Beauregard',
+  name: 'Gustavo Beauregard - CTO, Founder & Tech Evangelist',
   title: 'CTO, Founder & Tech Evangelist',
   description:
     'Portfolio of Gustavo Beauregard - CTO, Founder & Tech Evangelist specializing in full-stack development, team leadership, and technology innovation.',
