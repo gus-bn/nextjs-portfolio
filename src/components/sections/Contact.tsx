@@ -2,7 +2,7 @@
 
 import { motion, useInView, Variants } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
@@ -29,6 +29,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Zod validation schema
 const contactFormSchema = z.object({
@@ -52,6 +53,9 @@ const contactFormSchema = z.object({
     .string()
     .min(50, 'Message must be at least 50 characters')
     .max(1000, 'Message must be less than 1000 characters'),
+  acceptPrivacy: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the privacy policy to submit the form',
+  }),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -107,6 +111,7 @@ const Contact = () => {
     formState: { errors, isValid, isDirty },
     reset,
     watch,
+    control,
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     mode: 'onChange',
@@ -116,6 +121,7 @@ const Contact = () => {
       company: '',
       project: '',
       message: '',
+      acceptPrivacy: false,
     },
   });
 
@@ -577,6 +583,58 @@ const Contact = () => {
                           >
                             {messageValue?.length || 0}/1000
                           </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Privacy Policy Acceptance */}
+                      <motion.div variants={itemVariants} className="space-y-2">
+                        <div className="flex items-start space-x-3">
+                          <Controller
+                            name="acceptPrivacy"
+                            control={control}
+                            render={({ field }) => (
+                              <Checkbox
+                                id="acceptPrivacy"
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                aria-invalid={
+                                  errors.acceptPrivacy ? 'true' : 'false'
+                                }
+                                aria-describedby={
+                                  errors.acceptPrivacy
+                                    ? 'privacy-error'
+                                    : undefined
+                                }
+                              />
+                            )}
+                          />
+                          <div className="grid gap-1.5 leading-none">
+                            <Label
+                              htmlFor="acceptPrivacy"
+                              className="text-sm font-medium leading-relaxed peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              I accept the{' '}
+                              <a
+                                href="/privacy"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-primary hover:underline font-medium"
+                              >
+                                Privacy Policy
+                              </a>{' '}
+                              and consent to the processing of my personal data
+                              *
+                            </Label>
+                            {errors.acceptPrivacy && (
+                              <p
+                                id="privacy-error"
+                                className="text-sm text-red-500"
+                                role="alert"
+                              >
+                                {errors.acceptPrivacy.message}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </motion.div>
 

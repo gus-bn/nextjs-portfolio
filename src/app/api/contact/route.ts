@@ -23,6 +23,9 @@ const contactFormSchema = z.object({
     .string()
     .min(50, 'Message must be at least 50 characters')
     .max(1000, 'Message must be less than 1000 characters'),
+  acceptPrivacy: z.boolean().refine((val) => val === true, {
+    message: 'Privacy policy must be accepted',
+  }),
 });
 
 // Rate limiting storage (in production, use Redis or similar)
@@ -117,6 +120,7 @@ export async function POST(request: NextRequest) {
       company: formData.company,
       project: formData.project,
       message: formData.message,
+      acceptPrivacy: formData.acceptPrivacy,
       timestamp: new Date().toISOString(),
       ip: getRateLimitKey(request),
     });
