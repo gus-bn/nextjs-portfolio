@@ -17,13 +17,9 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const { scrollToSection } = useScrollToSection();
-  const activeSection = useActiveSection([
-    'hero',
-    'about',
-    'experience',
-    'skills',
-    'contact',
-  ]);
+  const activeSection = useActiveSection(
+    NAVIGATION_ITEMS.map((item) => item.href.replace('#', ''))
+  );
   const scrollProgress = useScrollProgress();
 
   // Close mobile menu when clicking outside or on navigation
@@ -166,15 +162,22 @@ export function Header() {
                     whileTap={{ y: 0 }}
                   >
                     {item.name}
-                    {isActive && (
-                      <motion.div
-                        className="absolute -bottom-1 left-1/2 w-1 h-1 bg-primary rounded-full"
-                        layoutId="activeIndicator"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        style={{ x: '-50%' }}
-                      />
-                    )}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          className="absolute -bottom-1 left-1/2 w-1 h-1 bg-primary rounded-full"
+                          layoutId="activeIndicator"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0 }}
+                          transition={{
+                            duration: 0.2,
+                            ease: 'easeInOut',
+                          }}
+                          style={{ x: '-50%' }}
+                        />
+                      )}
+                    </AnimatePresence>
                   </motion.button>
                 );
               })}
@@ -368,15 +371,22 @@ export function Header() {
                           }
                           aria-label={`Navigate to ${item.name} section`}
                         >
-                          {isActive && (
-                            <motion.div
-                              className="absolute left-1 top-1/2 w-1 h-6 bg-primary rounded-full"
-                              layoutId="mobileActiveIndicator"
-                              initial={{ opacity: 0, scale: 0 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              style={{ y: '-50%' }}
-                            />
-                          )}
+                          <AnimatePresence>
+                            {isActive && (
+                              <motion.div
+                                className="absolute left-1 top-1/2 w-1 h-6 bg-primary rounded-full"
+                                layoutId="mobileActiveIndicator"
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0 }}
+                                transition={{
+                                  duration: 0.2,
+                                  ease: 'easeInOut',
+                                }}
+                                style={{ y: '-50%' }}
+                              />
+                            )}
+                          </AnimatePresence>
                           <span className={cn(isActive && 'ml-4')}>
                             {item.name}
                           </span>

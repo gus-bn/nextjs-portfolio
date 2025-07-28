@@ -48,17 +48,30 @@ export function useActiveSection(sectionIds: string[], offset = 100) {
   const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
+    // Debounce the active section changes to prevent rapid updates
+    let timeoutId: NodeJS.Timeout;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
+        // Clear any pending timeout
+        clearTimeout(timeoutId);
+
+        // Find the section with the largest intersection ratio
+        const mostVisibleEntry = entries.find((entry) => entry.isIntersecting);
+
+        if (mostVisibleEntry) {
+          // Debounce the state update to prevent rapid changes
+          timeoutId = setTimeout(() => {
+            setActiveSection(mostVisibleEntry.target.id);
+          }, 50); // Small delay to prevent flickering
+        }
+
+        // Handle case where no section is intersecting (between sections)
+        // Keep the current active section in this case
       },
       {
-        rootMargin: `-${offset}px 0px -50% 0px`,
-        threshold: 0.1,
+        rootMargin: `-${offset}px 0px -60% 0px`, // Improved margins
+        threshold: [0.1, 0.3, 0.5], // Multiple thresholds for better detection
       }
     );
 
@@ -70,6 +83,7 @@ export function useActiveSection(sectionIds: string[], offset = 100) {
     });
 
     return () => {
+      clearTimeout(timeoutId);
       observer.disconnect();
     };
   }, [sectionIds, offset]);
