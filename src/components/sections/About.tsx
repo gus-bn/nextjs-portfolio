@@ -147,7 +147,7 @@ const About = () => {
                     {' '}
                     enterprise architecture
                   </span>
-                  . My journey spans from launching Mexico's first MVNO to
+                  . My journey spans from launching Mexico&apos;s first MVNO to
                   pioneering AI-powered SaaS solutions.
                 </motion.p>
 

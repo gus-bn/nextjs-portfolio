@@ -29,7 +29,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import type { ContactFormData } from '@/types';
 
 // Zod validation schema
 const contactFormSchema = z.object({
@@ -223,7 +222,7 @@ const Contact = () => {
               >
                 Get In Touch
               </motion.h3>
-              {contactInfo.map((info, index) => (
+              {contactInfo.map((info) => (
                 <motion.div key={info.title} variants={itemVariants}>
                   <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 bg-card/80 backdrop-blur-sm h-full">
                     <CardContent className="p-6">
