@@ -8,8 +8,6 @@ import { z } from 'zod';
 import {
   Send,
   Loader2,
-  CheckCircle,
-  AlertCircle,
   Mail,
   MapPin,
   Globe,
@@ -30,6 +28,7 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { SuccessModal, ErrorModal } from '@/components/ui/modal';
 
 // Zod validation schema
 const contactFormSchema = z.object({
@@ -64,9 +63,8 @@ const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    'idle' | 'success' | 'error'
-  >('idle');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [honeypot, setHoneypot] = useState('');
 
   // Contact information data
@@ -137,7 +135,6 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
-    setSubmitStatus('idle');
 
     try {
       const response = await fetch('/api/contact', {
@@ -155,11 +152,11 @@ const Contact = () => {
       }
 
       console.log('Form submitted successfully:', result);
-      setSubmitStatus('success');
+      setShowSuccessModal(true);
       reset();
     } catch (error) {
       console.error('Form submission error:', error);
-      setSubmitStatus('error');
+      setShowErrorModal(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -285,46 +282,6 @@ const Contact = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {/* Success Message */}
-                  {submitStatus === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mb-8 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center gap-3"
-                    >
-                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-                      <div>
-                        <h3 className="font-semibold text-green-800 dark:text-green-200">
-                          Message Sent Successfully!
-                        </h3>
-                        <p className="text-sm text-green-600 dark:text-green-300">
-                          Thank you for reaching out. I&apos;ll get back to you
-                          within 24 hours.
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Error Message */}
-                  {submitStatus === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mb-8 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3"
-                    >
-                      <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
-                      <div>
-                        <h3 className="font-semibold text-red-800 dark:text-red-200">
-                          Submission Failed
-                        </h3>
-                        <p className="text-sm text-red-600 dark:text-red-300">
-                          There was an error sending your message. Please try
-                          again.
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="space-y-6"
@@ -687,6 +644,16 @@ const Contact = () => {
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Modals */}
+        <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+        />
+        <ErrorModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+        />
       </div>
     </section>
   );
