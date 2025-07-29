@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Load environment variables with validation
+import 'dotenv-safe/config';
+
 // Validation schema matching the form
 const contactFormSchema = z.object({
   name: z
@@ -108,12 +111,56 @@ export async function POST(request: NextRequest) {
       // You could either reject or flag for manual review
     }
 
-    // Here you would normally:
-    // 1. Send an email using a service like SendGrid, Nodemailer, etc.
-    // 2. Save to database
-    // 3. Send notification to admin
+    // Send data to external API endpoint
+    try {
+      const apiUrl = process.env.API_URL;
+      if (!apiUrl) {
+        throw new Error('API_URL environment variable is not configured');
+      }
 
-    // For now, just log the submission
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || '',
+          project: formData.project,
+          message: formData.message,
+          acceptPrivacy: formData.acceptPrivacy,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('External API error:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText,
+        });
+        throw new Error(
+          `External API returned ${response.status}: ${response.statusText}`
+        );
+      }
+
+      const apiResult = await response.json();
+      console.log('Successfully sent to external API:', apiResult);
+    } catch (apiError) {
+      console.error('Failed to send to external API:', apiError);
+      // You might want to still return success to user but log the error
+      // Or return an error depending on your requirements
+      return NextResponse.json(
+        {
+          error: 'Failed to process your request. Please try again later.',
+          code: 'API_ERROR',
+        },
+        { status: 500 }
+      );
+    }
+
+    // Log the submission locally as well
     console.log('Contact form submission:', {
       name: formData.name,
       email: formData.email,
@@ -124,9 +171,6 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
       ip: getRateLimitKey(request),
     });
-
-    // Simulate email sending delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return NextResponse.json(
       {

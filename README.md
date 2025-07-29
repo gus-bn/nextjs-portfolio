@@ -11,6 +11,7 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - **Performance Optimized**: Uses Turbopack for fast development
 - **Accessibility**: Built with accessibility best practices
 - **Form Handling**: React Hook Form with Zod validation
+- **Environment Config**: Secure environment variable management with dotenv-safe
 - **Animations**: Framer Motion for smooth transitions
 
 ## Tech Stack
@@ -21,6 +22,7 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - **UI Components**: Custom components with Lucide React icons
 - **Theme**: next-themes for dark/light mode
 - **Forms**: React Hook Form with Zod validation
+- **Environment**: dotenv-safe for environment variable validation
 - **Animations**: Framer Motion
 - **Development**: Turbopack for fast builds
 
@@ -86,7 +88,63 @@ pnpm dev
 bun dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Set up environment variables (see [Environment Setup](#environment-setup) below)
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Environment Setup
+
+This project uses environment variables for configuration and requires all variables to be properly defined using `dotenv-safe`.
+
+### Required Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# API Configuration
+API_URL=
+```
+
+### Environment Files
+
+- **`.env.example`** - Used by dotenv-safe to validate required variables
+- **`.env.local`** - Your local environment variables (not committed to git)
+
+### Setting Up Environment Variables
+
+1. Copy the sample environment file:
+
+```bash
+cp .env.sample .env.local
+```
+
+2. Update the values in `.env.local` with your actual configuration:
+
+```bash
+# API Configuration
+API_URL=your-webhook-endpoint-url
+```
+
+3. The application will automatically validate that all required environment variables are present when starting
+
+### Contact Form Configuration
+
+The contact form integrates with an external webhook endpoint defined by the `API_URL` environment variable. The form sends the following data structure:
+
+```json
+{
+  "name": "User's full name",
+  "email": "user@example.com",
+  "company": "Company name (optional)",
+  "project": "Project description",
+  "message": "Detailed message",
+  "acceptPrivacy": true
+}
+```
+
+### Validation
+
+The project uses `dotenv-safe` to ensure all required environment variables are defined before the application starts. If any required variables are missing, the application will fail to start with a clear error message.
 
 ## Available Scripts
 

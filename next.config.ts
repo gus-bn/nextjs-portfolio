@@ -1,5 +1,8 @@
 import type { NextConfig } from 'next';
 
+// Load and validate environment variables
+import 'dotenv-safe/config';
+
 const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
