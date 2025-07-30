@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   links: {
     github: 'https://github.com/gus-bn',
     linkedin: 'https://linkedin.com/in//gus-beauregard',
-    email: 'mailto:gustavo.beauregard.noriega@gmail.com',
+    email: 'mailto:hello@gusb.dev',
     resume: '/resume.pdf',
   },
   location: 'Querétaro, MX',

@@ -224,7 +224,7 @@ export function ErrorModal({ isOpen, onClose }: ErrorModalProps) {
             Try Again
           </Button>
           <a
-            href="mailto:gustavo.beauregard.noriega@gmail.com"
+            href="mailto:hello@gusb.dev"
             className="flex-1 inline-flex items-center justify-center h-10 px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Email Directly

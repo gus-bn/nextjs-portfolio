@@ -72,9 +72,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'gustavo.beauregard.noriega@gmail.com',
+      value: 'hello@gusb.dev',
       description: 'Drop me a line anytime',
-      href: 'mailto:gustavo.beauregard.noriega@gmail.com',
+      href: 'mailto:hello@gusb.dev',
       external: false,
     },
     {
@@ -631,7 +631,7 @@ const Contact = () => {
                       I typically respond within 24 hours. For urgent matters,
                       feel free to reach out via{' '}
                       <a
-                        href="mailto:gustavo.beauregard.noriega@gmail.com"
+                        href="mailto:hello@gusb.dev"
                         className="text-primary hover:underline font-medium"
                       >
                         email
