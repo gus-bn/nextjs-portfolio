@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronDown, Download, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Squares from '@/components/ui/Squares';
 
 const Hero = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -51,90 +52,14 @@ const Hero = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background" />
 
-      {/* Animated background elements */}
+      {/* Squares background effect */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360],
-                }
-          }
-          transition={
-            prefersReducedMotion
-              ? {}
-              : {
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }
-          }
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-full blur-3xl will-change-transform"
-        />
-        <motion.div
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1.2, 1, 1.2],
-                  rotate: [360, 180, 0],
-                }
-          }
-          transition={
-            prefersReducedMotion
-              ? {}
-              : {
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }
-          }
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-accent/10 to-secondary/10 rounded-full blur-3xl will-change-transform"
-        />
-        {/* Additional floating elements for enhanced visual appeal */}
-        <motion.div
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  x: [0, 30, 0],
-                  y: [0, -20, 0],
-                  opacity: [0.3, 0.6, 0.3],
-                }
-          }
-          transition={
-            prefersReducedMotion
-              ? {}
-              : {
-                  duration: 15,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }
-          }
-          className="absolute top-1/2 left-1/6 w-32 h-32 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-2xl will-change-transform"
-        />
-        <motion.div
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  x: [0, -25, 0],
-                  y: [0, 15, 0],
-                  opacity: [0.2, 0.5, 0.2],
-                }
-          }
-          transition={
-            prefersReducedMotion
-              ? {}
-              : {
-                  duration: 18,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }
-          }
-          className="absolute top-3/4 right-1/6 w-48 h-48 bg-gradient-to-r from-accent/5 to-primary/5 rounded-full blur-2xl will-change-transform"
+        <Squares 
+          speed={prefersReducedMotion ? 0 : 0.5} 
+          squareSize={40}
+          direction='diagonal'
+          borderColor='rgba(128, 128, 128, 0.1)'
+          hoverFillColor='rgba(128, 128, 128, 0.05)'
         />
       </div>
 

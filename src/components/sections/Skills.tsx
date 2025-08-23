@@ -14,6 +14,20 @@ import {
   Bot,
 } from 'lucide-react';
 import { useRef, useState } from 'react';
+import LogoLoop from '@/components/ui/LogoLoop';
+import { 
+  SiReact, 
+  SiNextdotjs, 
+  SiTypescript, 
+  SiNodedotjs,
+  SiAmazonwebservices,
+  SiSwift,
+  SiKotlin,
+  SiRuby,
+  SiTailwindcss,
+  SiEmberdotjs,
+  SiDocker
+} from 'react-icons/si';
 
 interface Skill {
   name: string;
@@ -33,6 +47,21 @@ interface SkillCategory {
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  // Popular tech logos for LogoLoop
+  const techLogos = [
+    { node: <SiReact className="w-full h-full text-[#61DAFB]" />, title: "React", href: "https://react.dev" },
+    { node: <SiNextdotjs className="w-full h-full text-foreground" />, title: "Next.js", href: "https://nextjs.org" },
+    { node: <SiTypescript className="w-full h-full text-[#3178C6]" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+    { node: <SiNodedotjs className="w-full h-full text-[#339933]" />, title: "Node.js", href: "https://nodejs.org" },
+    { node: <SiRuby className="w-full h-full text-[#CC342D]" />, title: "Ruby", href: "https://ruby-lang.org" },
+    { node: <SiAmazonwebservices className="w-full h-full text-[#FF9900]" />, title: "AWS", href: "https://aws.amazon.com" },
+    { node: <SiSwift className="w-full h-full text-[#FA7343]" />, title: "Swift", href: "https://swift.org" },
+    { node: <SiKotlin className="w-full h-full text-[#7F52FF]" />, title: "Kotlin", href: "https://kotlinlang.org" },
+    { node: <SiEmberdotjs className="w-full h-full text-[#E04E39]" />, title: "Ember.js", href: "https://emberjs.com" },
+    { node: <SiTailwindcss className="w-full h-full text-[#06B6D4]" />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+    { node: <SiDocker className="w-full h-full text-[#2496ED]" />, title: "Docker", href: "https://docker.com" },
+  ];
 
   const skillCategories: SkillCategory[] = [
     {
@@ -346,11 +375,33 @@ const Skills = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Technical <span className="text-gradient-primary">Expertise</span>
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-12">
               Comprehensive full-stack development capabilities with expertise
               spanning backend systems, frontend frameworks, mobile platforms,
               and enterprise architecture.
             </p>
+
+            {/* Tech Logo Loop */}
+            <motion.div 
+              variants={cardVariants}
+              className="relative overflow-hidden bg-gradient-to-r from-muted/10 via-muted/5 to-muted/10 rounded-2xl p-8 backdrop-blur-sm border border-border/20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+              <div className="relative">
+                <LogoLoop
+                  logos={techLogos}
+                  speed={80}
+                  direction="left"
+                  logoHeight={48}
+                  gap={60}
+                  pauseOnHover
+                  scaleOnHover
+                  fadeOut
+                  fadeOutColor="var(--background)"
+                  ariaLabel="Technologies and tools I work with"
+                />
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Skills Grid */}
