@@ -8,8 +8,9 @@ import Skills from '@/components/sections/Skills';
 import Contact from '@/components/sections/Contact';
 
 export const metadata: Metadata = {
-  title: 'Gustavo Borges - CTO, Founder & AI Specialist',
-  description: 'Experienced CTO and AI Specialist with 18+ years in software engineering. Leading teams of 40+ engineers, specializing in full-stack development, React, Next.js, and cutting-edge AI solutions.',
+  title: 'Gustavo Beauregard - CTO, Founder & AI Specialist',
+  description:
+    'Experienced CTO and AI Specialist with 18+ years in software engineering. Leading teams of 40+ engineers, specializing in full-stack development, React, Next.js, and cutting-edge AI solutions.',
 };
 
 export default function Home() {
