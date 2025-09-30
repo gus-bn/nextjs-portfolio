@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import ReCAPTCHA from 'react-google-recaptcha';
 import {
   Send,
   Loader2,
@@ -61,6 +62,7 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
   const ref = useRef(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -137,21 +139,42 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      // Execute reCAPTCHA
+      const recaptchaToken = await recaptchaRef.current?.executeAsync();
+      if (!recaptchaToken) {
+        throw new Error('reCAPTCHA verification failed');
+      }
+
+      // Reset reCAPTCHA for next submission
+      recaptchaRef.current?.reset();
+
+      // Direct API call to external webhook
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!apiUrl) {
+        throw new Error('API URL is not configured');
+      }
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          company: data.company || '',
+          project: data.project,
+          message: data.message,
+          acceptPrivacy: data.acceptPrivacy,
+          recaptchaToken,
+        }),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message');
+        throw new Error('Failed to send message');
       }
 
-      console.log('Form submitted successfully:', result);
+      console.log('Form submitted successfully');
       setShowSuccessModal(true);
       reset();
     } catch (error) {
@@ -620,6 +643,13 @@ const Contact = () => {
                         </Button>
                       </motion.div>
                     </fieldset>
+
+                    {/* Invisible reCAPTCHA */}
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      size="invisible"
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                    />
                   </form>
 
                   {/* Form Footer */}

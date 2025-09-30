@@ -4,16 +4,17 @@ import type { NextConfig } from 'next';
 import 'dotenv-safe/config';
 
 const nextConfig: NextConfig = {
+  // Static export for SEO optimization
+  output: 'export',
+
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 
-  // Image optimization
+  // Image optimization - unoptimized for static export
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    unoptimized: true,
   },
 
   // Compression

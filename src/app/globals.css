@@ -268,6 +268,37 @@ html {
   will-change: opacity;
 }
 
+/* Google reCAPTCHA badge styling */
+.grecaptcha-badge {
+  position: fixed !important;
+  bottom: 14px !important;
+  right: 14px !important;
+  z-index: 9998 !important;
+  width: 70px !important;
+  height: 60px !important;
+  transition: width 0.3s ease !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.grecaptcha-badge:hover {
+  width: 256px !important;
+}
+
+@media (max-width: 640px) {
+  .grecaptcha-badge {
+    bottom: 8px !important;
+    right: 8px !important;
+    transform: scale(0.9) !important;
+    transform-origin: bottom right !important;
+  }
+
+  .grecaptcha-badge:hover {
+    width: 256px !important;
+    transform: scale(0.9) !important;
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
