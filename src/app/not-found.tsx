@@ -6,19 +6,6 @@ import { Home, ArrowLeft, Search, FileQuestion } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-export const metadata = {
-  title: '404 - Page Not Found',
-  description: 'The page you are looking for does not exist. Return to Gustavo Beauregard\'s portfolio to explore AI solutions and technology leadership.',
-  openGraph: {
-    title: '404 - Page Not Found | Gustavo Beauregard',
-    description: 'The page you are looking for does not exist. Return to explore my portfolio.',
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
-
 export default function NotFound() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
