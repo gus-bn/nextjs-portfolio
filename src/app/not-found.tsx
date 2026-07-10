@@ -116,7 +116,7 @@ export default function NotFound() {
             >
               {!imageError ? (
                 <Image
-                  src="/profile.png"
+                  src="/profile.webp"
                   alt="Gustavo Beauregard"
                   fill
                   className="object-cover"

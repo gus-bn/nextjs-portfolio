@@ -184,7 +184,7 @@ const About = () => {
                   {!imageError ? (
                     <>
                       <Image
-                        src="/profile.png"
+                        src="/profile.webp"
                         alt="Gustavo Beauregard - Professional Photo"
                         fill
                         className={`object-cover transition-opacity duration-300 ${

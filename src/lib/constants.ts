@@ -18,6 +18,7 @@ export const SITE_CONFIG = {
 export const NAVIGATION_ITEMS = [
   { name: 'About', href: '#about' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Work', href: '#portfolio' },
   { name: 'Skills', href: '#skills' },
   { name: 'Contact', href: '#contact' },
 ] as const;
