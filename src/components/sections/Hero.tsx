@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronDown, Download, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Squares from '@/components/ui/Squares';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const Hero = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -78,7 +79,7 @@ const Hero = () => {
             <MapPin size={16} />
             <span className="text-sm font-medium">Querétaro, Mexico</span>
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse ml-2" />
-            <span className="text-sm">Available for opportunities</span>
+            <span className="text-sm">Open to remote roles</span>
           </motion.div>
 
           {/* Main heading */}
@@ -99,17 +100,17 @@ const Hero = () => {
           {/* Role */}
           <motion.div variants={itemVariants} className="mb-8">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-muted-foreground mb-4">
-              CTO, Founder & Tech Evangelist
+              {SITE_CONFIG.title}
             </h2>
             <div className="flex flex-wrap justify-center gap-3 text-sm font-medium">
               <span className="px-4 py-2 bg-secondary/20 text-secondary border border-secondary/30">
-                AI Specialist
+                AI / LLM Engineering
               </span>
               <span className="px-4 py-2 bg-accent/20 text-accent border border-accent/30">
-                18+ Years Experience
+                18+ Years Shipping
               </span>
               <span className="px-4 py-2 bg-primary/10 text-primary border border-primary/30">
-                40+ Team Leader
+                Rails · Node · Python · React
               </span>
             </div>
           </motion.div>
@@ -119,19 +120,18 @@ const Hero = () => {
             variants={itemVariants}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            Passionate about{' '}
-            <span className="text-secondary font-semibold">
-              AI transformation
-            </span>{' '}
-            and{' '}
+            I build{' '}
+            <span className="text-secondary font-semibold">AI products</span>{' '}
+            end to end — retrieval pipelines, fine-tuned models and agent
+            systems — on{' '}
             <span className="text-accent font-semibold">
-              scalable architectures
-            </span>
-            . I&apos;ve led teams to launch 15+ SaaS products serving over{' '}
+              high-availability architectures
+            </span>{' '}
+            that have served{' '}
             <span className="text-primary font-semibold">
-              3M monthly active users
+              3M+ monthly active users
             </span>
-            , driving business innovation through cutting-edge technology.
+            .
           </motion.p>
 
           {/* CTA Buttons */}

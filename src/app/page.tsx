@@ -7,11 +7,11 @@ import Experience from '@/components/sections/Experience';
 import Portfolio from '@/components/sections/Portfolio';
 import Skills from '@/components/sections/Skills';
 import Contact from '@/components/sections/Contact';
+import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Gustavo Beauregard - CTO, Founder & AI Specialist',
-  description:
-    'Experienced CTO and AI Specialist with 18+ years in software engineering. Leading teams of 40+ engineers, specializing in full-stack development, React, Next.js, and cutting-edge AI solutions.',
+  title: SITE_CONFIG.siteName,
+  description: SITE_CONFIG.description,
 };
 
 export default function Home() {
@@ -23,11 +23,11 @@ export default function Home() {
 
         <About />
 
-        <Experience />
+        <Skills />
 
         <Portfolio />
 
-        <Skills />
+        <Experience />
 
         <Contact />
       </main>

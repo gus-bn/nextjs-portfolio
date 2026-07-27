@@ -20,6 +20,7 @@ type Project = {
   statement: string;
   description: string;
   capabilities: string[];
+  stack: string[];
   icon: typeof Bot;
 };
 
@@ -34,6 +35,7 @@ const projects: Project[] = [
     description:
       'Built from the ground up as an enterprise AI platform: a conversion-led product experience backed by intelligent agents, custom automations, and integrations that make complex internal operations feel clear and actionable.',
     capabilities: ['AI agents', 'RPA workflows', 'Knowledge systems', 'Conversion engine'],
+    stack: ['Python', 'Node.js', 'Vector DB', 'LLM APIs', 'Next.js', 'Docker'],
     icon: Bot,
   },
   {
@@ -46,6 +48,7 @@ const projects: Project[] = [
     description:
       'Created the full product story and operating surface for an AI agent that can qualify leads, manage support, schedule meetings, and hand conversations to people through WhatsApp, Instagram, Web Chat, Zendesk, Salesforce, and more.',
     capabilities: ['Omnichannel UX', 'Lead CRM', 'Human handoff', 'Messaging APIs'],
+    stack: ['Node.js', 'Python', 'PostgreSQL', 'Webhooks', 'React', 'RAG'],
     icon: Network,
   },
   {
@@ -58,6 +61,7 @@ const projects: Project[] = [
     description:
       'Designed and engineered a calm, human-centered wellness experience around an always-on AI coach. The system connects nutrition, fitness, emotional health, progress tracking, and expert support in one personalized daily journey.',
     capabilities: ['Mobile-first journeys', 'Personalization', 'Health dashboards', 'Human-in-the-loop'],
+    stack: ['React Native', 'Node.js', 'Python', 'LLM APIs', 'PostgreSQL'],
     icon: Smartphone,
   },
   {
@@ -68,8 +72,9 @@ const projects: Project[] = [
     imageAlt: 'Eucledian digital technology studio homepage',
     statement: 'The studio where product, operations, and growth meet.',
     description:
-      'Founded the technical and creative foundation for tailored web and mobile products. From high-converting campaigns to admin tools, REST API backends, and dashboards, each build connected a sharp front end to a system teams could actually run.',
+      'Built the technical foundation for tailored web and mobile products. From high-converting campaigns to admin tools, REST API backends, and dashboards, each build connected a sharp front end to a system teams could actually run.',
     capabilities: ['Web + mobile', 'Admin CMS', 'REST APIs', 'Campaign systems'],
+    stack: ['Ruby on Rails', 'PHP', 'MySQL', 'iOS / Android', 'AWS', 'CI/CD'],
     icon: Braces,
   },
 ];
@@ -166,6 +171,16 @@ const Portfolio = () => {
                           {capability}
                         </span>
                       ))}
+                    </div>
+                    <div className="mt-6 border-t border-white/10 pt-5">
+                      <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                        Stack
+                      </div>
+                      <div className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-xs text-accent/90">
+                        {project.stack.map((tech) => (
+                          <span key={tech}>{tech}</span>
+                        ))}
+                      </div>
                     </div>
                     <a
                       href={project.url}

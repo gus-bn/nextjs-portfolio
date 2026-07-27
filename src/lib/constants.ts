@@ -1,25 +1,29 @@
 export const SITE_CONFIG = {
-  name: 'Gustavo Beauregard - CTO, Founder & Tech Evangelist',
-  title: 'CTO, Founder & Tech Evangelist',
+  /** Person only — used for copyright, author metadata and prose. */
+  name: 'Gustavo Beauregard',
+  /** Current professional title — the single source of truth for the site. */
+  title: 'Senior AI & Full-Stack Engineer',
+  /** Name + title, for page titles, OG tags and other metadata. */
+  siteName: 'Gustavo Beauregard — Senior AI & Full-Stack Engineer',
   description:
-    'AI Specialist | 18+ Years Experience | 40+ Team Leader - Portfolio of Gustavo Beauregard specializing in AI, full-stack development, team leadership, and technology innovation.',
+    'AI engineer with 18+ years shipping production systems. I build LLM-powered products — RAG, vector search, fine-tuning, agents — on architectures that scale to millions of users. Ruby on Rails, Node.js, Python, React/Next.js, AWS.',
   url: 'https://www.gusb.dev/',
   ogImage: '/og-image.png',
   links: {
     github: 'https://github.com/gus-bn',
-    linkedin: 'https://linkedin.com/in//gus-beauregard',
+    linkedin: 'https://linkedin.com/in/gus-beauregard',
     email: 'mailto:hello@gusb.dev',
     resume: '/resume.pdf',
   },
   location: 'Querétaro, MX',
-  availability: 'Available for new opportunities',
+  availability: 'Open to remote roles — AI & full-stack',
 } as const;
 
 export const NAVIGATION_ITEMS = [
   { name: 'About', href: '#about' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Work', href: '#portfolio' },
   { name: 'Skills', href: '#skills' },
+  { name: 'Work', href: '#portfolio' },
+  { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
 ] as const;
 

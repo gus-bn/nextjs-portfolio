@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, useInView, Variants } from 'framer-motion';
-import { Code, Users, Lightbulb, Award } from 'lucide-react';
+import { Code, Layers, Cpu, Award, User } from 'lucide-react';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const About = () => {
   const ref = useRef(null);
@@ -15,23 +16,23 @@ const About = () => {
     {
       icon: Code,
       title: '18+ Years',
-      description: 'In scalable application development',
+      description: 'Writing production code',
       color: 'text-secondary',
       bgColor: 'bg-secondary/10',
       hoverBg: 'hover:bg-secondary/20',
     },
     {
-      icon: Users,
-      title: '40+ Engineers',
-      description: 'Successfully led teams',
+      icon: Layers,
+      title: '15+ Products',
+      description: 'Shipped to production',
       color: 'text-accent',
       bgColor: 'bg-accent/10',
       hoverBg: 'hover:bg-accent/20',
     },
     {
-      icon: Lightbulb,
-      title: '15+ Products',
-      description: 'SaaS solutions launched',
+      icon: Cpu,
+      title: 'AI / LLM',
+      description: 'RAG, fine-tuning, agents',
       color: 'text-primary',
       bgColor: 'bg-primary/10',
       hoverBg: 'hover:bg-primary/20',
@@ -39,7 +40,7 @@ const About = () => {
     {
       icon: Award,
       title: '3M+ Users',
-      description: 'Monthly active users served',
+      description: 'Served by systems I built',
       color: 'text-secondary',
       bgColor: 'bg-secondary/10',
       hoverBg: 'hover:bg-secondary/20',
@@ -116,8 +117,9 @@ const About = () => {
               About <span className="text-gradient-primary">Gustavo</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A passionate technology leader driving digital transformation
-              through innovative AI solutions and scalable architectures.
+              An engineer who ships. Eighteen years of hands-on work across the
+              stack, now focused on building LLM-powered products that hold up
+              in production.
             </p>
           </motion.div>
 
@@ -129,7 +131,7 @@ const About = () => {
               className="space-y-6 text-center lg:text-left"
             >
               <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
-                CTO, Founder & Tech Evangelist
+                {SITE_CONFIG.title}
               </h3>
 
               <div className="space-y-4 text-muted-foreground">
@@ -137,41 +139,43 @@ const About = () => {
                   className="text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  With over 18 years in technology leadership, I specialize in
-                  <span className="text-secondary font-semibold">
-                    {' '}
-                    AI transformation
-                  </span>{' '}
-                  and
+                  I&apos;ve spent 18 years writing the code behind products
+                  people actually use — from
                   <span className="text-accent font-semibold">
                     {' '}
-                    enterprise architecture
-                  </span>
-                  . My journey spans from launching Mexico&apos;s first MVNO to
-                  pioneering AI-powered SaaS solutions.
+                    telecom platforms
+                  </span>{' '}
+                  serving millions of subscribers to
+                  <span className="text-secondary font-semibold">
+                    {' '}
+                    AI systems
+                  </span>{' '}
+                  running in production today.
                 </motion.p>
 
                 <motion.p
                   className="text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  As CTO and Co-Founder of{' '}
+                  At{' '}
                   <span className="text-primary font-semibold">
                     TheGurúCompany
-                  </span>
-                  , I&apos;ve built comprehensive AI microservices architectures
-                  that power multiple products including Utoppia, ChatO, and
-                  WeWell—serving millions of users worldwide.
+                  </span>{' '}
+                  I built the AI microservices architecture behind Utoppia,
+                  ChatO and WeWell — embeddings and vector search, retrieval,
+                  fine-tuned models, RPA workers and a custom flow builder for
+                  agent workflows.
                 </motion.p>
 
                 <motion.p
                   className="text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  I&apos;m passionate about bridging the gap between
-                  cutting-edge AI technology and real-world business solutions,
-                  transforming how organizations operate and scale in the
-                  digital age.
+                  I work across the whole stack: Ruby on Rails, Node.js and
+                  Python on the back end, React and Next.js on the front, native
+                  mobile when it&apos;s called for, deployed on AWS and GCP. I
+                  like problems where the hard part is the system design, not
+                  the framework.
                 </motion.p>
               </div>
 
@@ -206,7 +210,7 @@ const About = () => {
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                       <div className="text-center">
-                        <Users className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
+                        <User className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                         <p className="text-sm text-muted-foreground">
                           Professional Photo
                         </p>
@@ -269,13 +273,13 @@ const About = () => {
                 {
                   year: '2020',
                   description:
-                    'Co-founded TheGurúCompany, launched first AI SaaS product',
+                    'Shipped first production AI SaaS product on a custom LLM stack',
                   color: 'text-secondary',
                 },
                 {
                   year: '2017',
                   description:
-                    "Launched Mexico's first MVNO with 25K+ active customers",
+                    "Built the platform behind Mexico's first MVNO — 25K+ subscribers",
                   color: 'text-accent',
                 },
                 {

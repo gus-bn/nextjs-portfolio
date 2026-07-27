@@ -29,76 +29,83 @@ const Experience = () => {
     {
       id: '1',
       company: 'TheGurúCompany',
-      role: 'CTO, Co-Founder',
-      type: 'AI Tech Startup',
+      role: 'Lead AI / Full-Stack Engineer',
+      type: 'AI SaaS Platform',
       location: 'Mexico',
       period: '2020 – Present',
       description:
-        'Leading AI transformation through innovative SaaS solutions',
+        'Building the LLM stack and services behind three production AI products',
       achievements: [
-        'Launched three AI SaaS products: Utoppia, ChatO, and WeWell',
-        'Developed comprehensive AI microservices architecture with embeddings, RPA, and custom flow builders',
-        'Implemented specialized AI services: model fine-tuning, vector databases, and prompt engineering',
-        'Integrated commercial and open-source LLMs for enterprise solutions',
+        'Built and shipped three production AI SaaS products — Utoppia, ChatO and WeWell — from architecture through deployment',
+        'Designed an AI microservices architecture spanning messaging-channel integrations, data and reference APIs, embedding and vector search, RPA workers and a custom visual flow builder for agent workflows',
+        'Implemented the LLM layer end to end: model fine-tuning, embedding pipelines, vector database integration, retrieval and prompt engineering',
+        'Integrated commercial and open-source models behind a single provider-agnostic service interface',
       ],
       technologies: [
-        'AI/ML',
-        'Microservices',
-        'Vector Databases',
         'LLMs',
-        'RPA',
-        'Node.js',
+        'RAG',
+        'Vector Databases',
+        'Embeddings',
+        'Fine-tuning',
         'Python',
+        'Node.js',
+        'Microservices',
+        'RPA',
+        'Docker',
       ],
       color: 'secondary',
     },
     {
       id: '2',
       company: 'Koonol México / Gurúcomm',
-      role: 'CTO, Co-Founder',
-      type: 'Tech Startup/MVNO',
+      role: 'Lead Platform Engineer',
+      type: 'Telecom SaaS / MVNO',
       location: 'México',
       period: '2017 – 2020',
       description:
-        "Pioneered Mexico's first MVNO and telecommunications innovation",
+        'Engineered a multi-tenant telecom platform from first subscriber to 3M+ MAU',
       achievements: [
-        'Launched Mexico\'s first MVNO on Altán\'s "Shared Network" with 25K active customers',
-        'Created white-labeled SaaS solutions serving 3M+ monthly active users',
-        "Developed country's first portability API and multiple top-up networks",
-        'Integrated prepaid and postpaid mobile services with innovative payment solutions',
+        'Engineered the platform behind Mexico\'s first MVNO on Altán\'s "Shared Network" — mobile apps, CRM, provisioning and conversion landing pages — reaching 25K active subscribers',
+        'Built the multi-tenant white-label version of the platform, licensed to multiple Altán Networks operators and serving 3M+ monthly active users',
+        "Developed the country's first number-portability API, plus top-up network integrations for convenience-store payments",
+        'Implemented prepaid and postpaid provisioning services with real-time balance and billing reconciliation',
       ],
       technologies: [
-        'Telecom APIs',
-        'Mobile Apps',
-        'CRM',
-        'Payment Systems',
         'Ruby on Rails',
         'React',
+        'PostgreSQL',
+        'REST APIs',
+        'Multi-tenancy',
+        'Payment Systems',
+        'Telecom APIs',
+        'AWS',
       ],
       color: 'accent',
     },
     {
       id: '3',
       company: 'Soluciones Eucledian',
-      role: 'CTO, Co-Founder',
-      type: 'Digital Agency',
+      role: 'Senior Full-Stack Developer',
+      type: 'Digital Products Studio',
       location: 'Mexico',
       period: '2012 – 2017',
       description:
-        'Founded digital agency merging innovation, creativity, and technology',
+        'Shipped web and mobile products on high-availability architectures',
       achievements: [
-        'Served 50+ active clients with comprehensive digital solutions',
-        'Developed mobile applications reaching 1M+ daily users',
-        'Created high-availability architectures for enterprise clients',
-        'Designed marketing solutions for CRM, ERP, and operations management',
+        'Built web and mobile products on high-availability architectures reaching 1M+ daily users',
+        'Delivered custom CRM, ERP, e-commerce and campaign/operations systems for 50+ clients',
+        'Owned the full stack: REST API design, data modeling, front-end, native and hybrid mobile',
+        'Set up AWS deployment and CI/CD pipelines across the studio’s project portfolio',
       ],
       technologies: [
-        'Mobile Development',
-        'Web Applications',
-        'AWS',
-        'Digital Marketing',
         'PHP',
-        'iOS/Android',
+        'Ruby on Rails',
+        'JavaScript',
+        'MySQL',
+        'REST APIs',
+        'iOS / Android',
+        'AWS',
+        'CI/CD',
       ],
       color: 'primary',
     },
@@ -107,7 +114,7 @@ const Experience = () => {
   const previousRoles = [
     {
       company: 'BNN',
-      role: 'CTO',
+      role: 'Lead Developer',
       period: '2009-2011',
       type: 'Digital Agency',
     },
@@ -115,7 +122,7 @@ const Experience = () => {
       company: 'Yoyo Button',
       role: 'Full Stack Developer',
       period: '2008-2009',
-      type: 'Tech Startup (Australia)',
+      type: 'Web Product (Australia)',
     },
   ];
 
@@ -251,8 +258,8 @@ const Experience = () => {
               <span className="text-gradient-primary">Experience</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A journey of technological innovation, from digital agencies to
-              AI-powered startups
+              18 years of hands-on engineering — from high-traffic web platforms
+              to production LLM systems
             </p>
 
             {/* Progress indicator */}

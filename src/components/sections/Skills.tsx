@@ -5,7 +5,7 @@ import {
   Server,
   Monitor,
   Smartphone,
-  Users,
+  Network,
   Shield,
   CheckCircle,
   Star,
@@ -64,6 +64,55 @@ const Skills = () => {
   ];
 
   const skillCategories: SkillCategory[] = [
+    {
+      title: 'AI & LLM Engineering',
+      icon: Bot,
+      description: 'Shipping retrieval, fine-tuning and agent systems to production',
+      color: 'from-cyan-500/20 to-indigo-500/20',
+      iconColor: 'text-cyan-400',
+      skills: [
+        {
+          name: 'RAG Pipelines',
+          level: 'Expert',
+          description: 'Chunking, retrieval & context assembly',
+        },
+        {
+          name: 'Vector Databases',
+          level: 'Expert',
+          description: 'Embedding storage & similarity search',
+        },
+        {
+          name: 'Model Fine-tuning',
+          level: 'Advanced',
+          description: 'Task-specific adaptation of open models',
+        },
+        {
+          name: 'Prompt & Eval Engineering',
+          level: 'Expert',
+          description: 'Structured prompting with measurable outputs',
+        },
+        {
+          name: 'Agent Orchestration',
+          level: 'Advanced',
+          description: 'Multi-step tool-using autonomous systems',
+        },
+        {
+          name: 'MCP Servers',
+          level: 'Advanced',
+          description: 'Model Context Protocol implementations',
+        },
+        {
+          name: 'RPA & Workflow Automation',
+          level: 'Expert',
+          description: 'n8n workflows and process automation',
+        },
+        {
+          name: 'API Orchestration',
+          level: 'Expert',
+          description: 'Complex service integrations',
+        },
+      ],
+    },
     {
       title: 'Backend Development',
       icon: Server,
@@ -172,66 +221,36 @@ const Skills = () => {
       ],
     },
     {
-      title: 'AI Automations',
-      icon: Bot,
-      description:
-        'Building intelligent automation systems and AI-powered solutions',
-      color: 'from-cyan-500/20 to-indigo-500/20',
-      iconColor: 'text-cyan-400',
-      skills: [
-        {
-          name: 'n8n Workflows',
-          level: 'Expert',
-          description: 'Complex automation workflows & integrations',
-        },
-        {
-          name: 'AI Agents',
-          level: 'Advanced',
-          description: 'Intelligent autonomous systems',
-        },
-        {
-          name: 'MCP Servers',
-          level: 'Advanced',
-          description: 'Model Context Protocol implementations',
-        },
-        {
-          name: 'Voice Assistants',
-          level: 'Advanced',
-          description: 'Conversational AI interfaces',
-        },
-        {
-          name: 'Process Automation',
-          level: 'Expert',
-          description: 'Business workflow optimization',
-        },
-        {
-          name: 'API Orchestration',
-          level: 'Expert',
-          description: 'Complex service integrations',
-        },
-      ],
-    },
-    {
-      title: 'Leadership & Architecture',
-      icon: Users,
-      description: 'Leading teams and designing scalable systems',
+      title: 'Architecture & Platform',
+      icon: Network,
+      description: 'Designing systems that stay up under load',
       color: 'from-purple-500/20 to-pink-500/20',
       iconColor: 'text-purple-400',
       skills: [
         {
-          name: 'Engineering Leadership',
+          name: 'Distributed Systems Design',
           level: 'Expert',
-          description: 'Managing high-performance teams',
+          description: 'Service boundaries, queues & data flow',
         },
         {
           name: 'Cloud Architecture',
           level: 'Expert',
-          description: 'AWS & resilient frameworks',
+          description: 'AWS & GCP resilient frameworks',
         },
         {
           name: 'High Availability',
           level: 'Expert',
           description: 'System reliability & uptime',
+        },
+        {
+          name: 'CI/CD & DevOps',
+          level: 'Advanced',
+          description: 'Docker, pipelines & automated deploys',
+        },
+        {
+          name: 'Code Review & Mentoring',
+          level: 'Expert',
+          description: 'Raising the bar on shipped code',
         },
         {
           name: 'Agile/Scrum',
@@ -376,9 +395,9 @@ const Skills = () => {
               Technical <span className="text-gradient-primary">Expertise</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-12">
-              Comprehensive full-stack development capabilities with expertise
-              spanning backend systems, frontend frameworks, mobile platforms,
-              and enterprise architecture.
+              The stack I actually build with — LLM and retrieval systems on top
+              of backend services, front-end applications, native mobile and the
+              cloud infrastructure underneath.
             </p>
 
             {/* Tech Logo Loop */}
@@ -570,7 +589,7 @@ const Skills = () => {
             <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
               <CheckCircle className="w-5 h-5 text-primary" />
               <span className="text-primary font-medium">
-                15+ years of full-stack development experience
+                18+ years of full-stack development experience
               </span>
             </div>
           </motion.div>

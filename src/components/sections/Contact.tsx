@@ -82,8 +82,8 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Available Worldwide',
-      description: 'Remote collaboration specialist',
+      value: 'Querétaro, MX (UTC−6)',
+      description: 'Remote, overlapping US hours',
       href: null,
       external: false,
     },
@@ -97,10 +97,10 @@ const Contact = () => {
     },
     {
       icon: Globe,
-      title: 'Website',
-      value: 'gusb.dev',
-      description: 'Learn more about my work',
-      href: 'https://www.gusb.dev/',
+      title: 'GitHub',
+      value: 'github.com/gus-bn',
+      description: 'Code and side projects',
+      href: 'https://github.com/gus-bn',
       external: true,
     },
   ];
@@ -234,8 +234,8 @@ const Contact = () => {
               Let&apos;s <span className="text-gradient-primary">Connect</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Ready to transform your business with AI? Let&apos;s discuss your
-              project and explore how we can work together.
+              Open to senior AI and full-stack engineering roles, remote. Happy
+              to talk about your stack, your product, or an interesting problem.
             </p>
           </motion.div>
 
@@ -298,10 +298,10 @@ const Contact = () => {
               <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold">
-                    Start Your Project
+                    Send a message
                   </CardTitle>
                   <CardDescription>
-                    Tell me about your vision and let&apos;s make it reality.
+                    Tell me about the role or the problem you&apos;re working on.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -469,12 +469,12 @@ const Contact = () => {
                           htmlFor="project"
                           className="text-foreground font-medium"
                         >
-                          What would you like to build? *
+                          Subject / Role *
                         </Label>
                         <Input
                           id="project"
                           type="text"
-                          placeholder="e.g., Mobile app, Web platform, API integration..."
+                          placeholder="e.g. Senior AI Engineer — remote"
                           className={
                             errors.project
                               ? 'border-red-500 focus-visible:ring-red-500'
@@ -519,13 +519,13 @@ const Contact = () => {
                           htmlFor="message"
                           className="text-foreground font-medium"
                         >
-                          Project Details *
+                          Details *
                         </Label>
                         <div className="relative">
                           <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
                           <Textarea
                             id="message"
-                            placeholder="Tell me more about your project, timeline, budget, and any specific requirements..."
+                            placeholder="A bit about the team, the stack, and what you're building..."
                             rows={6}
                             className={`pl-10 pt-10 resize-none ${
                               errors.message

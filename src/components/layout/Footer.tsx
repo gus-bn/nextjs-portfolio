@@ -37,6 +37,10 @@ export function Footer() {
           <div className="md:col-span-2">
             <h3 className="text-lg font-semibold text-foreground mb-4">
               {SITE_CONFIG.name}
+              <span className="text-muted-foreground font-normal">
+                {' '}
+                — {SITE_CONFIG.title}
+              </span>
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
               {SITE_CONFIG.description}
