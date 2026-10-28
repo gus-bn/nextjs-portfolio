@@ -8,12 +8,9 @@ import {
   Network,
   Shield,
   CheckCircle,
-  Star,
-  TrendingUp,
-  Award,
   Bot,
 } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import LogoLoop from '@/components/ui/LogoLoop';
 import { 
   SiReact, 
@@ -65,9 +62,9 @@ const Skills = () => {
 
   const skillCategories: SkillCategory[] = [
     {
-      title: 'AI & LLM Engineering',
+      title: 'AI & Agentic Engineering',
       icon: Bot,
-      description: 'Shipping retrieval, fine-tuning and agent systems to production',
+      description: 'Agents that do production work, and the workflow that ships them',
       color: 'from-cyan-500/20 to-indigo-500/20',
       iconColor: 'text-cyan-400',
       skills: [
@@ -77,39 +74,19 @@ const Skills = () => {
           description: 'Chunking, retrieval & context assembly',
         },
         {
-          name: 'Vector Databases',
-          level: 'Expert',
-          description: 'Embedding storage & similarity search',
-        },
-        {
-          name: 'Model Fine-tuning',
-          level: 'Advanced',
-          description: 'Task-specific adaptation of open models',
-        },
-        {
-          name: 'Prompt & Eval Engineering',
-          level: 'Expert',
-          description: 'Structured prompting with measurable outputs',
-        },
-        {
           name: 'Agent Orchestration',
-          level: 'Advanced',
-          description: 'Multi-step tool-using autonomous systems',
-        },
-        {
-          name: 'MCP Servers',
-          level: 'Advanced',
-          description: 'Model Context Protocol implementations',
-        },
-        {
-          name: 'RPA & Workflow Automation',
           level: 'Expert',
-          description: 'n8n workflows and process automation',
+          description: 'Tool-using agents with queues, slots and timeouts',
         },
         {
-          name: 'API Orchestration',
+          name: 'Browser Agents',
           level: 'Expert',
-          description: 'Complex service integrations',
+          description: 'Headless agents driving Chrome over MCP',
+        },
+        {
+          name: 'Claude Code & Codex',
+          level: 'Expert',
+          description: 'Agent-driven development, skills and subagents',
         },
       ],
     },
@@ -140,16 +117,6 @@ const Skills = () => {
           level: 'Advanced',
           description: 'Cloud infrastructure & services',
         },
-        {
-          name: 'High Availability',
-          level: 'Expert',
-          description: 'Resilient system design',
-        },
-        {
-          name: 'Open Source',
-          level: 'Advanced',
-          description: 'Contributing to community projects',
-        },
       ],
     },
     {
@@ -165,11 +132,6 @@ const Skills = () => {
           description: 'Modern component-based development',
         },
         {
-          name: 'Ember.js',
-          level: 'Expert',
-          description: 'Ambitious web applications',
-        },
-        {
           name: 'Next.js',
           level: 'Expert',
           description: 'Full-stack React framework',
@@ -178,11 +140,6 @@ const Skills = () => {
           name: 'Admin Dashboards',
           level: 'Expert',
           description: 'Complex data visualization',
-        },
-        {
-          name: 'Mobile Websites',
-          level: 'Advanced',
-          description: 'Responsive web design',
         },
         {
           name: 'CRM Systems',
@@ -247,16 +204,6 @@ const Skills = () => {
           level: 'Advanced',
           description: 'Docker, pipelines & automated deploys',
         },
-        {
-          name: 'Code Review & Mentoring',
-          level: 'Expert',
-          description: 'Raising the bar on shipped code',
-        },
-        {
-          name: 'Agile/Scrum',
-          level: 'Expert',
-          description: 'Iterative development methodologies',
-        },
       ],
     },
     {
@@ -290,46 +237,8 @@ const Skills = () => {
     },
   ];
 
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Expert':
-        return 'bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700 hover:border-emerald-700 shadow-sm shadow-emerald-500/20';
-      case 'Advanced':
-        return 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm shadow-blue-500/20';
-      case 'Intermediate':
-        return 'bg-amber-600 text-white border-amber-600 hover:bg-amber-700 hover:border-amber-700 shadow-sm shadow-amber-500/20';
-      default:
-        return 'bg-muted/10 text-muted-foreground border-border/20';
-    }
-  };
-
-  const getLevelIcon = (level: string) => {
-    switch (level) {
-      case 'Expert':
-        return Star;
-      case 'Advanced':
-        return TrendingUp;
-      case 'Intermediate':
-        return Award;
-      default:
-        return CheckCircle;
-    }
-  };
-
-  const getLevelDescription = (level: string) => {
-    switch (level) {
-      case 'Expert':
-        return 'Deep expertise with extensive production experience';
-      case 'Advanced':
-        return 'Strong proficiency with solid practical knowledge';
-      case 'Intermediate':
-        return 'Good understanding with growing experience';
-      default:
-        return 'Familiar with the technology';
-    }
-  };
+  const getLevelBars = (level: Skill['level']) =>
+    level === 'Expert' ? 3 : level === 'Advanced' ? 2 : 1;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -395,15 +304,15 @@ const Skills = () => {
               Technical <span className="text-gradient-primary">Expertise</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-12">
-              The stack I actually build with — LLM and retrieval systems on top
-              of backend services, front-end applications, native mobile and the
-              cloud infrastructure underneath.
+              The stack I actually build with: agent and retrieval systems on
+              top of backend services, front-end applications, native mobile
+              and the cloud infrastructure underneath.
             </p>
 
             {/* Tech Logo Loop */}
             <motion.div 
               variants={cardVariants}
-              className="relative overflow-hidden bg-gradient-to-r from-muted/10 via-muted/5 to-muted/10 rounded-2xl p-8 backdrop-blur-sm border border-border/20"
+              className="relative overflow-hidden bg-gradient-to-r from-muted/10 via-muted/5 to-muted/10 p-8 backdrop-blur-sm border border-border/20"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
               <div className="relative">
@@ -426,7 +335,7 @@ const Skills = () => {
           {/* Skills Grid */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8"
+            className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-fr gap-8"
           >
             {skillCategories.map((category, index) => (
               <motion.div
@@ -438,7 +347,7 @@ const Skills = () => {
                 }}
               >
                 <div
-                  className="h-full group bg-card/80 backdrop-blur-sm border border-border/50 rounded-lg p-6 transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:bg-card focus-within:ring-2 focus-within:ring-primary/20"
+                  className="h-full group bg-card/80 backdrop-blur-sm border border-border/50 p-6 transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:bg-card focus-within:ring-2 focus-within:ring-primary/20"
                   tabIndex={0}
                   role="region"
                   aria-labelledby={`category-${index}`}
@@ -446,7 +355,7 @@ const Skills = () => {
                   {/* Category Header */}
                   <div className="flex items-center gap-4 mb-6">
                     <motion.div
-                      className={`p-3 rounded-2xl bg-gradient-to-r ${category.color} backdrop-blur-sm transition-all duration-300`}
+                      className={`p-3 bg-gradient-to-r ${category.color} backdrop-blur-sm transition-all duration-300`}
                       whileHover={{
                         scale: 1.1,
                         rotate: 5,
@@ -469,7 +378,7 @@ const Skills = () => {
                           (_, i) => (
                             <motion.div
                               key={i}
-                              className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary/40"
+                              className="w-1.5 h-1.5 bg-primary/20 group-hover:bg-primary/40"
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
                               transition={{ delay: i * 0.1, duration: 0.2 }}
@@ -490,91 +399,44 @@ const Skills = () => {
                     className="space-y-3"
                   >
                     {category.skills.map((skill, skillIndex) => {
-                      const LevelIcon = getLevelIcon(skill.level);
-                      const skillKey = `${category.title}-${skill.name}`;
-                      const isHovered = hoveredSkill === skillKey;
-
                       return (
                         <motion.div
                           key={skill.name}
                           variants={skillVariants}
                           custom={skillIndex}
-                          className="group/skill relative p-4 rounded-xl bg-card/60 backdrop-blur-sm border border-border/40 transition-all duration-300 hover:bg-card/80 hover:scale-[1.02] hover:border-primary/30 hover:shadow-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary/50"
-                          onMouseEnter={() => setHoveredSkill(skillKey)}
-                          onMouseLeave={() => setHoveredSkill(null)}
-                          tabIndex={0}
-                          role="button"
-                          aria-label={`${skill.name} - ${skill.level} level skill`}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              setHoveredSkill(isHovered ? null : skillKey);
-                            }
-                          }}
+                          className="group/skill relative p-4 bg-card/60 backdrop-blur-sm border border-border/40 transition-all duration-300 hover:bg-card/80 hover:border-primary/30"
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                               <h4 className="font-semibold text-foreground group-hover/skill:text-primary transition-colors duration-300">
                                 {skill.name}
                               </h4>
-                              <motion.div
-                                initial={{ scale: 0, opacity: 0 }}
-                                animate={{
-                                  scale: isHovered ? 1 : 0,
-                                  opacity: isHovered ? 1 : 0,
-                                }}
-                                transition={{ duration: 0.2 }}
-                                className="flex items-center"
-                              >
-                                <LevelIcon className="w-4 h-4 text-primary" />
-                              </motion.div>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span
-                                className={`px-3 py-1 rounded-full text-xs font-medium border transition-all duration-300 flex items-center gap-1 ${getLevelColor(
-                                  skill.level
-                                )}`}
+<span
+                                className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground"
+                                aria-label={`${skill.level} level`}
                               >
-                                <LevelIcon className="w-3 h-3" />
-                                {skill.level}
-                              </span>
+                                <span className="flex gap-0.5" aria-hidden="true">
+                                  {[0, 1, 2].map((bar) => (
+                                    <span
+                                      key={bar}
+                                      className={`h-3 w-1.5 ${
+                                        bar < getLevelBars(skill.level)
+                                          ? 'bg-accent'
+                                          : 'bg-border'
+                                      }`}
+                                    />
+                                  ))}
+                                </span>
+                                {skill.level}</span>
                             </div>
                           </div>
 
-                          <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {skill.description}
                           </p>
 
-                          {/* Enhanced context on hover */}
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{
-                              height: isHovered ? 'auto' : 0,
-                              opacity: isHovered ? 1 : 0,
-                            }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pt-2 mt-2 border-t border-border/30">
-                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <LevelIcon className="w-3 h-3" />
-                                <span className="font-medium">
-                                  {getLevelDescription(skill.level)}
-                                </span>
-                              </div>
-                            </div>
-                          </motion.div>
-
-                          {/* Animated skill reveal indicator */}
-                          <motion.div
-                            className="absolute inset-0 rounded-xl border-2 border-primary/20 pointer-events-none"
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{
-                              scale: isHovered ? 1 : 0.8,
-                              opacity: isHovered ? 1 : 0,
-                            }}
-                            transition={{ duration: 0.2 }}
-                          />
                         </motion.div>
                       );
                     })}
@@ -586,9 +448,9 @@ const Skills = () => {
 
           {/* Experience Summary */}
           <motion.div variants={cardVariants} className="mt-16 text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
-              <CheckCircle className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium">
+            <div className="inline-flex items-center gap-3 border-y border-border px-6 py-3">
+              <CheckCircle className="w-5 h-5 text-accent" />
+              <span className="text-foreground font-medium">
                 18+ years of full-stack development experience
               </span>
             </div>

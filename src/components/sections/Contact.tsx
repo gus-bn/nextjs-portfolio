@@ -474,7 +474,7 @@ const Contact = () => {
                         <Input
                           id="project"
                           type="text"
-                          placeholder="e.g. Senior AI Engineer — remote"
+                          placeholder="e.g. Senior AI Engineer, remote"
                           className={
                             errors.project
                               ? 'border-red-500 focus-visible:ring-red-500'

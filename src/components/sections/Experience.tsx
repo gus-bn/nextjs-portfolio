@@ -7,7 +7,14 @@ import {
   useTransform,
   Variants,
 } from 'framer-motion';
-import { Calendar, MapPin, Building, ChevronRight } from 'lucide-react';
+import {
+  Briefcase,
+  Building,
+  Calendar,
+  ChevronRight,
+  Cpu,
+  MapPin,
+} from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Experience as ExperienceType } from '@/types';
 
@@ -32,11 +39,12 @@ const Experience = () => {
       role: 'Lead AI / Full-Stack Engineer',
       type: 'AI SaaS Platform',
       location: 'Mexico',
-      period: '2020 – Present',
+      period: '2020 to now',
       description:
         'Building the LLM stack and services behind three production AI products',
       achievements: [
-        'Built and shipped three production AI SaaS products — Utoppia, ChatO and WeWell — from architecture through deployment',
+        'Built and shipped three production AI SaaS products, Utoppia, ChatO and WeWell, from architecture through deployment',
+        'Built tool-calling conversational agents with human handoff across WhatsApp, Instagram, web chat, Zendesk and Salesforce',
         'Designed an AI microservices architecture spanning messaging-channel integrations, data and reference APIs, embedding and vector search, RPA workers and a custom visual flow builder for agent workflows',
         'Implemented the LLM layer end to end: model fine-tuning, embedding pipelines, vector database integration, retrieval and prompt engineering',
         'Integrated commercial and open-source models behind a single provider-agnostic service interface',
@@ -61,11 +69,11 @@ const Experience = () => {
       role: 'Lead Platform Engineer',
       type: 'Telecom SaaS / MVNO',
       location: 'México',
-      period: '2017 – 2020',
+      period: '2017 to 2020',
       description:
         'Engineered a multi-tenant telecom platform from first subscriber to 3M+ MAU',
       achievements: [
-        'Engineered the platform behind Mexico\'s first MVNO on Altán\'s "Shared Network" — mobile apps, CRM, provisioning and conversion landing pages — reaching 25K active subscribers',
+        'Engineered the platform behind Mexico\'s first MVNO on Altán\'s "Shared Network": mobile apps, CRM, provisioning and conversion landing pages, reaching 25K active subscribers',
         'Built the multi-tenant white-label version of the platform, licensed to multiple Altán Networks operators and serving 3M+ monthly active users',
         "Developed the country's first number-portability API, plus top-up network integrations for convenience-store payments",
         'Implemented prepaid and postpaid provisioning services with real-time balance and billing reconciliation',
@@ -88,7 +96,7 @@ const Experience = () => {
       role: 'Senior Full-Stack Developer',
       type: 'Digital Products Studio',
       location: 'Mexico',
-      period: '2012 – 2017',
+      period: '2012 to 2017',
       description:
         'Shipped web and mobile products on high-availability architectures',
       achievements: [
@@ -201,25 +209,6 @@ const Experience = () => {
     },
   };
 
-  const techTagVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: 'easeOut',
-      },
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2,
-        ease: 'easeOut',
-      },
-    },
-  };
-
   const getColorClasses = (color: 'primary' | 'secondary' | 'accent') => {
     switch (color) {
       case 'secondary':
@@ -258,8 +247,8 @@ const Experience = () => {
               <span className="text-gradient-primary">Experience</span>
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              18 years of hands-on engineering — from high-traffic web platforms
-              to production LLM systems
+              18 years of hands-on engineering, from high-traffic web platforms
+              to production agent systems
             </p>
 
             {/* Progress indicator */}
@@ -327,7 +316,7 @@ const Experience = () => {
 
                     {/* Card */}
                     <motion.div
-                      className="bg-card p-4 sm:p-6 md:p-8 rounded-lg border group hover:shadow-xl transition-all duration-300 hover:border-primary/20 hover:bg-card/80"
+                      className="bg-card p-4 sm:p-6 md:p-8 border group hover:shadow-xl transition-all duration-300 hover:border-primary/20 hover:bg-card/80"
                       whileHover={{
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                       }}
@@ -413,32 +402,15 @@ const Experience = () => {
 
                       {/* Technologies */}
                       <div>
-                        <h4 className="font-semibold text-foreground mb-3">
-                          Technologies & Skills:
-                        </h4>
-                        <motion.div
-                          className="flex flex-wrap gap-2"
-                          initial="hidden"
-                          animate="visible"
-                          variants={{
-                            visible: {
-                              transition: {
-                                staggerChildren: 0.05,
-                              },
-                            },
-                          }}
-                        >
-                          {exp.technologies.map((tech, i) => (
-                            <motion.span
-                              key={i}
-                              variants={techTagVariants}
-                              whileHover="hover"
-                              className={`px-3 py-1 text-xs font-medium rounded-full border ${colorClasses.tag} cursor-pointer transition-all duration-300 hover:shadow-md`}
-                            >
-                              {tech}
-                            </motion.span>
-                          ))}
-                        </motion.div>
+<div className="flex items-start gap-3 border-t border-border pt-4">
+                          <Cpu
+                            size={16}
+                            className={`mt-1 shrink-0 ${colorClasses.icon}`}
+                          />
+                          <p className="font-mono text-xs leading-6 text-muted-foreground">
+                            {exp.technologies.join('  /  ')}
+                          </p>
+                        </div>
                       </div>
                     </motion.div>
                   </motion.div>
@@ -461,8 +433,9 @@ const Experience = () => {
                   key={index}
                   variants={cardVariants}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-card p-6 rounded-lg border text-center hover:shadow-lg transition-all duration-300 hover:border-primary/20"
+                  className="bg-card p-6 border text-center hover:shadow-lg transition-all duration-300 hover:border-primary/20"
                 >
+                  <Briefcase size={20} className="mx-auto mb-3 text-accent" />
                   <h4 className="font-semibold text-foreground mb-2">
                     {role.role}
                   </h4>

@@ -1,14 +1,14 @@
 export const SITE_CONFIG = {
-  /** Person only — used for copyright, author metadata and prose. */
+  /** Person only, used for copyright, author metadata and prose. */
   name: 'Gustavo Beauregard',
-  /** Current professional title — the single source of truth for the site. */
+  /** Current professional title, the single source of truth for the site. */
   title: 'Senior AI & Full-Stack Engineer',
   /** Name + title, for page titles, OG tags and other metadata. */
-  siteName: 'Gustavo Beauregard — Senior AI & Full-Stack Engineer',
+  siteName: 'Gustavo Beauregard | Senior AI & Full-Stack Engineer',
   description:
-    'AI engineer with 18+ years shipping production systems. I build LLM-powered products — RAG, vector search, fine-tuning, agents — on architectures that scale to millions of users. Ruby on Rails, Node.js, Python, React/Next.js, AWS.',
+    'AI engineer with 18+ years shipping production systems. I build agentic AI products, from browser and conversational agents to RAG and vector search, on architectures that scale to millions of users. Ruby on Rails, Node.js, Python, React/Next.js, AWS.',
   url: 'https://www.gusb.dev/',
-  ogImage: '/og-image.png',
+  ogImage: '/og-image.png?v=2',
   links: {
     github: 'https://github.com/gus-bn',
     linkedin: 'https://linkedin.com/in/gus-beauregard',
@@ -16,13 +16,14 @@ export const SITE_CONFIG = {
     resume: '/resume.pdf',
   },
   location: 'Querétaro, MX',
-  availability: 'Open to remote roles — AI & full-stack',
+  availability: 'Open to remote opportunities',
 } as const;
 
 export const NAVIGATION_ITEMS = [
   { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
+  { name: 'Agents', href: '#agents' },
   { name: 'Work', href: '#portfolio' },
+  { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
 ] as const;
@@ -45,7 +46,7 @@ export const THEME_CONFIG = {
   defaultTheme: 'system' as const,
   enableSystem: true,
   disableTransitionOnChange: false,
-  themes: ['light', 'dark', 'system'] as const,
+  themes: ['light', 'dark'] as const,
 } as const;
 
 // Accessibility constants

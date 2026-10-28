@@ -1,202 +1,214 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import {
-  ArrowUpRight,
-  Bot,
-  Braces,
-  Network,
-  Smartphone,
-} from 'lucide-react';
-import { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight, Cpu, Images, Lock } from 'lucide-react';
+import { useCallback, useRef, useState } from 'react';
+import { ProjectGallery } from '@/components/ui/ProjectGallery';
+import { logoPlate, ProjectLogo } from '@/components/ui/ProjectLogo';
+import { PROJECTS, type Project } from '@/lib/projects';
 
-type Project = {
-  name: string;
-  eyebrow: string;
-  url: string;
-  image: string;
-  imageAlt: string;
-  statement: string;
-  description: string;
-  capabilities: string[];
-  stack: string[];
-  icon: typeof Bot;
+const firstSentence = (text: string) => text.split(/(?<=\.)\s/)[0];
+
+const ProjectCard = ({
+  project,
+  index,
+  isInView,
+  onOpen,
+}: {
+  project: Project;
+  index: number;
+  isInView: boolean;
+  onOpen: (project: Project) => void;
+}) => {
+  const prefersReducedMotion = useReducedMotion();
+  const CategoryIcon = project.categoryIcon;
+  const cover = project.shots[0];
+  const host = project.url?.replace(/^https:\/\/|\/$/g, '');
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 36 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.65, delay: index * 0.1 }}
+      className="group relative flex flex-col border border-border bg-card transition-colors duration-300 hover:border-foreground/25"
+    >
+      {/* Cover */}
+      <button
+        type="button"
+        onClick={() => onOpen(project)}
+        aria-label={`Open ${project.name} screenshots`}
+        className="relative block text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+      >
+        <div className="flex items-center gap-2 border-b border-border bg-muted px-3 py-2 font-mono text-[11px] text-muted-foreground">
+          <span className="flex gap-1.5" aria-hidden="true">
+            <span className="h-2 w-2 bg-foreground/15" />
+            <span className="h-2 w-2 bg-foreground/15" />
+            <span className="h-2 w-2 bg-foreground/15" />
+          </span>
+          <span className="ml-2 flex items-center gap-1.5 truncate">
+            {host ? (
+              host
+            ) : project.brands ? (
+              project.brands
+                .map((brand) => brand.url?.replace(/^https:\/\/|\/$/g, ''))
+                .join('  ·  ')
+            ) : (
+              <>
+                <Lock size={11} /> private console
+              </>
+            )}
+          </span>
+        </div>
+        <div className="relative aspect-[16/10] overflow-hidden bg-black">
+          <Image
+            src={cover.src}
+            alt={cover.caption}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+          <span className="absolute bottom-4 right-4 flex items-center gap-2 border border-white/20 bg-black/70 px-3 py-1.5 text-xs font-semibold text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+            <Images size={14} /> {project.shots.length} screens
+          </span>
+        </div>
+      </button>
+
+      {/* Logo plate */}
+      <div
+        className={`relative z-10 -mt-8 ml-5 flex h-16 w-fit items-center px-4 shadow-xl shadow-black/15 md:ml-7 dark:shadow-black/40 ${logoPlate(project)}`}
+      >
+        <ProjectLogo project={project} />
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-5 md:p-7">
+        <div className="mb-4 flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+          <span className="flex items-center gap-2">
+            <CategoryIcon size={14} className="text-accent" />
+            {project.category}
+          </span>
+          <span>{project.period}</span>
+        </div>
+
+        <h3 className="text-2xl font-semibold tracking-[-0.04em] md:text-3xl">
+          {project.name}
+        </h3>
+        <p className="mt-2 text-lg leading-snug tracking-[-0.02em] text-foreground/85">
+          {project.statement}
+        </p>
+
+        {project.brands && (
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            {project.brands.map((brand) => (
+              <span
+                key={brand.name}
+                className="flex h-8 items-center bg-white px-2.5 ring-1 ring-black/10"
+              >
+                <Image
+                  src={brand.logo}
+                  alt={`${brand.name} logo`}
+                  width={96}
+                  height={24}
+                  className="h-4 w-auto object-contain"
+                />
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-5 flex gap-3 border-t border-border pt-5">
+          <Cpu size={18} className="mt-0.5 shrink-0 text-accent" />
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {firstSentence(project.agentic)}
+          </p>
+        </div>
+
+        <p className="mt-5 font-mono text-xs leading-6 text-accent/80">
+          {project.stack.slice(0, 6).join('  /  ')}
+        </p>
+
+        <div className="mt-auto flex flex-wrap items-center gap-3 pt-7">
+          <button
+            type="button"
+            onClick={() => onOpen(project)}
+            className="inline-flex items-center gap-2 bg-foreground px-4 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <Images size={16} /> More info
+          </button>
+          {project.url ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 border border-border px-4 py-2.5 text-sm font-semibold text-foreground/85 transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              Live site <ArrowUpRight size={16} />
+            </a>
+          ) : project.brands ? null : (
+            <span className="inline-flex items-center gap-2 px-1 text-xs text-muted-foreground">
+              <Lock size={14} /> Private platform
+            </span>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
 };
-
-const projects: Project[] = [
-  {
-    name: 'Utoppia',
-    eyebrow: 'AI automation platform',
-    url: 'https://utoppia.ai/',
-    image: '/utoppia.png',
-    imageAlt: 'Utoppia intelligent automation platform homepage',
-    statement: 'Turn operational drag into intelligent momentum.',
-    description:
-      'Built from the ground up as an enterprise AI platform: a conversion-led product experience backed by intelligent agents, custom automations, and integrations that make complex internal operations feel clear and actionable.',
-    capabilities: ['AI agents', 'RPA workflows', 'Knowledge systems', 'Conversion engine'],
-    stack: ['Python', 'Node.js', 'Vector DB', 'LLM APIs', 'Next.js', 'Docker'],
-    icon: Bot,
-  },
-  {
-    name: 'ChatO',
-    eyebrow: 'Conversational AI + CRM',
-    url: 'https://getchato.ai/',
-    image: '/chato.png',
-    imageAlt: 'ChatO intelligent customer communication homepage',
-    statement: 'A sales and support team that never leaves the chat.',
-    description:
-      'Created the full product story and operating surface for an AI agent that can qualify leads, manage support, schedule meetings, and hand conversations to people through WhatsApp, Instagram, Web Chat, Zendesk, Salesforce, and more.',
-    capabilities: ['Omnichannel UX', 'Lead CRM', 'Human handoff', 'Messaging APIs'],
-    stack: ['Node.js', 'Python', 'PostgreSQL', 'Webhooks', 'React', 'RAG'],
-    icon: Network,
-  },
-  {
-    name: 'WeWell',
-    eyebrow: 'Personal wellness intelligence',
-    url: 'https://wewell.ai/',
-    image: '/wewell.png',
-    imageAlt: 'WeWell AI wellness coach homepage',
-    statement: 'Habit-building, designed for the rhythm of real life.',
-    description:
-      'Designed and engineered a calm, human-centered wellness experience around an always-on AI coach. The system connects nutrition, fitness, emotional health, progress tracking, and expert support in one personalized daily journey.',
-    capabilities: ['Mobile-first journeys', 'Personalization', 'Health dashboards', 'Human-in-the-loop'],
-    stack: ['React Native', 'Node.js', 'Python', 'LLM APIs', 'PostgreSQL'],
-    icon: Smartphone,
-  },
-  {
-    name: 'Eucledian',
-    eyebrow: 'Digital products + growth systems',
-    url: 'https://eucledian.com/',
-    image: '/eucledian.png',
-    imageAlt: 'Eucledian digital technology studio homepage',
-    statement: 'The studio where product, operations, and growth meet.',
-    description:
-      'Built the technical foundation for tailored web and mobile products. From high-converting campaigns to admin tools, REST API backends, and dashboards, each build connected a sharp front end to a system teams could actually run.',
-    capabilities: ['Web + mobile', 'Admin CMS', 'REST APIs', 'Campaign systems'],
-    stack: ['Ruby on Rails', 'PHP', 'MySQL', 'iOS / Android', 'AWS', 'CI/CD'],
-    icon: Braces,
-  },
-];
 
 const Portfolio = () => {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [active, setActive] = useState<Project | null>(null);
+  const close = useCallback(() => setActive(null), []);
 
   return (
     <section
       id="portfolio"
       ref={ref}
-      className="relative overflow-hidden bg-[#090a0d] py-20 text-white md:py-28"
+      className="relative overflow-hidden bg-muted/30 py-20 text-foreground md:py-28 dark:bg-[#090a0d]"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.055)_1px,transparent_1px)] [background-size:42px_42px]" />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[44rem] -translate-x-1/2 rounded-full bg-secondary/20 blur-[140px]" />
+      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(hsl(var(--foreground)/.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/.05)_1px,transparent_1px)] [background-size:42px_42px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[44rem] -translate-x-1/2 rounded-full bg-secondary/10 blur-[140px] dark:bg-secondary/20" />
 
       <div className="container relative mx-auto max-w-6xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-16 max-w-3xl md:mb-24"
+          className="mb-14 grid gap-8 md:mb-20 lg:grid-cols-[1.3fr_1fr] lg:items-end"
         >
-          <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-white/55">
-            <span className="h-px w-10 bg-accent" />
-            Selected work · 2012 to now
+          <div>
+            <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-muted-foreground">
+              <span className="h-px w-10 bg-accent" />
+              Selected work
+            </div>
+            <h2 className="font-mono text-4xl font-semibold leading-[0.95] tracking-[-0.07em] sm:text-5xl md:text-7xl">
+              Whole products, <span className="text-accent">built with agents.</span>
+            </h2>
           </div>
-          <h2 className="font-mono text-4xl font-semibold leading-[0.95] tracking-[-0.07em] sm:text-5xl md:text-7xl">
-            I build the <span className="text-accent">whole</span> product.
-          </h2>
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/65 md:text-lg">
-            Not just the screen users see. The launch story, the conversion
-            system, the admin console, the CRM, the API layer, and the
-            automation that keeps the business moving after launch.
+          <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Agents inside the product doing real work, and agents in my
+            workflow writing, testing and shipping the code. Open any project
+            to see the screens and how the agentic layer fits.
           </p>
         </motion.div>
 
-        <div className="space-y-8 md:space-y-12">
-          {projects.map((project, index) => {
-            const Icon = project.icon;
-            return (
-              <motion.article
-                key={project.name}
-                initial={{ opacity: 0, y: 36 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.65, delay: index * 0.09 }}
-                className="group relative overflow-hidden border border-white/10 bg-white/[0.035] p-3 backdrop-blur-sm md:p-5"
-              >
-                <div className="grid gap-7 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-12">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Visit ${project.name}`}
-                    className="relative block bg-[#141418] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  >
-                    <div className="relative aspect-video bg-black">
-                      <Image
-                        src={project.image}
-                        alt={project.imageAlt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        className="object-contain"
-                      />
-                    </div>
-                  </a>
-
-                  <div className="pb-4 pl-2 pr-2 md:px-4 lg:py-8">
-                    <div className="mb-6 flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <span>{project.eyebrow}</span>
-                    </div>
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="grid h-10 w-10 place-items-center bg-white text-black">
-                        <Icon size={19} strokeWidth={2.4} />
-                      </div>
-                      <h3 className="text-3xl font-semibold tracking-[-0.05em] md:text-4xl">
-                        {project.name}
-                      </h3>
-                    </div>
-                    <p className="max-w-md text-xl leading-tight tracking-[-0.035em] text-white md:text-2xl">
-                      {project.statement}
-                    </p>
-                    <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/60 md:text-base">
-                      {project.description}
-                    </p>
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {project.capabilities.map((capability) => (
-                        <span
-                          key={capability}
-                          className="border border-white/15 px-3 py-1.5 text-xs font-medium text-white/75"
-                        >
-                          {capability}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-6 border-t border-white/10 pt-5">
-                      <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                        Stack
-                      </div>
-                      <div className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-xs text-accent/90">
-                        {project.stack.map((tech) => (
-                          <span key={tech}>{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                    >
-                      Explore live product <ArrowUpRight size={16} />
-                    </a>
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="grid gap-6 md:gap-8 lg:grid-cols-2">
+          {PROJECTS.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              isInView={isInView}
+              onOpen={setActive}
+            />
+          ))}
         </div>
       </div>
+
+      <ProjectGallery project={active} onClose={close} />
     </section>
   );
 };

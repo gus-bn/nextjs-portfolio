@@ -39,7 +39,7 @@ export function Footer() {
               {SITE_CONFIG.name}
               <span className="text-muted-foreground font-normal">
                 {' '}
-                — {SITE_CONFIG.title}
+                | {SITE_CONFIG.title}
               </span>
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">

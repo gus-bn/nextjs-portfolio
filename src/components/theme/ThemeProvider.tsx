@@ -20,7 +20,7 @@ export function ThemeProvider({
   defaultTheme = THEME_CONFIG.defaultTheme,
   enableSystem = THEME_CONFIG.enableSystem,
   disableTransitionOnChange = THEME_CONFIG.disableTransitionOnChange,
-  themes = ['light', 'dark', 'system'],
+  themes = ['light', 'dark'],
   storageKey = 'theme',
   ...props
 }: ThemeProviderProps) {

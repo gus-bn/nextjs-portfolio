@@ -1,10 +1,26 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { ChevronDown, Download, Mail, MapPin } from 'lucide-react';
+import {
+  Bot,
+  ChevronDown,
+  Download,
+  Layers,
+  Mail,
+  MapPin,
+  Timer,
+  Users,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Squares from '@/components/ui/Squares';
 import { SITE_CONFIG } from '@/lib/constants';
+
+const HIGHLIGHTS = [
+  { icon: Bot, label: 'Agentic AI systems' },
+  { icon: Layers, label: 'Full-stack, end to end' },
+  { icon: Users, label: '3M+ MAU platforms' },
+  { icon: Timer, label: '18+ years shipping' },
+];
 
 const Hero = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -79,7 +95,7 @@ const Hero = () => {
             <MapPin size={16} />
             <span className="text-sm font-medium">Querétaro, Mexico</span>
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse ml-2" />
-            <span className="text-sm">Open to remote roles</span>
+            <span className="text-sm">{SITE_CONFIG.availability}</span>
           </motion.div>
 
           {/* Main heading */}
@@ -102,17 +118,17 @@ const Hero = () => {
             <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-muted-foreground mb-4">
               {SITE_CONFIG.title}
             </h2>
-            <div className="flex flex-wrap justify-center gap-3 text-sm font-medium">
-              <span className="px-4 py-2 bg-secondary/20 text-secondary border border-secondary/30">
-                AI / LLM Engineering
-              </span>
-              <span className="px-4 py-2 bg-accent/20 text-accent border border-accent/30">
-                18+ Years Shipping
-              </span>
-              <span className="px-4 py-2 bg-primary/10 text-primary border border-primary/30">
-                Rails · Node · Python · React
-              </span>
-            </div>
+            <ul className="mx-auto flex max-w-3xl flex-wrap justify-center border-y border-border text-sm font-medium">
+              {HIGHLIGHTS.map(({ icon: Icon, label }) => (
+                <li
+                  key={label}
+                  className="flex items-center gap-2 px-4 py-3 text-foreground/80 sm:[&:not(:last-child)]:border-r sm:border-border"
+                >
+                  <Icon size={16} className="text-accent" />
+                  {label}
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
           {/* Description */}
@@ -121,9 +137,9 @@ const Hero = () => {
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
             I build{' '}
-            <span className="text-secondary font-semibold">AI products</span>{' '}
-            end to end — retrieval pipelines, fine-tuned models and agent
-            systems — on{' '}
+            <span className="text-secondary font-semibold">agentic products</span>{' '}
+            end to end, from browser agents and conversational AI to retrieval
+            pipelines, and I ship them with a workflow run by coding agents, on{' '}
             <span className="text-accent font-semibold">
               high-availability architectures
             </span>{' '}
@@ -191,7 +207,7 @@ const Hero = () => {
                       ease: 'easeInOut',
                     }
               }
-              className="p-2 rounded-full border border-muted hover:border-secondary transition-colors duration-300 group-hover:shadow-lg will-change-transform"
+              className="p-2 border border-muted hover:border-secondary transition-colors duration-300 group-hover:shadow-lg will-change-transform"
             >
               <ChevronDown
                 size={20}

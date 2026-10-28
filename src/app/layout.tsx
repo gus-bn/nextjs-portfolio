@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         url: SITE_CONFIG.ogImage,
         width: 1200,
         height: 630,
-        alt: `${SITE_CONFIG.siteName} — 18+ years shipping production systems`,
+        alt: `${SITE_CONFIG.name}, ${SITE_CONFIG.title}. Agentic systems, LLM products and platforms at scale`,
         type: 'image/png',
       },
     ],

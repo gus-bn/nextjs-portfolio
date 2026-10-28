@@ -1,7 +1,15 @@
 'use client';
 
 import { motion, useInView, Variants } from 'framer-motion';
-import { Code, Layers, Cpu, Award, User } from 'lucide-react';
+import {
+  Award,
+  Bot,
+  Code,
+  GraduationCap,
+  Layers,
+  RadioTower,
+  User,
+} from 'lucide-react';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -30,9 +38,9 @@ const About = () => {
       hoverBg: 'hover:bg-accent/20',
     },
     {
-      icon: Cpu,
-      title: 'AI / LLM',
-      description: 'RAG, fine-tuning, agents',
+      icon: Bot,
+      title: 'Agentic AI',
+      description: 'In the product and the workflow',
       color: 'text-primary',
       bgColor: 'bg-primary/10',
       hoverBg: 'hover:bg-primary/20',
@@ -118,8 +126,8 @@ const About = () => {
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               An engineer who ships. Eighteen years of hands-on work across the
-              stack, now focused on building LLM-powered products that hold up
-              in production.
+              stack, now focused on agentic AI products that hold up in
+              production.
             </p>
           </motion.div>
 
@@ -140,7 +148,7 @@ const About = () => {
                   variants={itemVariants}
                 >
                   I&apos;ve spent 18 years writing the code behind products
-                  people actually use — from
+                  people actually use, from
                   <span className="text-accent font-semibold">
                     {' '}
                     telecom platforms
@@ -157,14 +165,12 @@ const About = () => {
                   className="text-lg leading-relaxed"
                   variants={itemVariants}
                 >
-                  At{' '}
-                  <span className="text-primary font-semibold">
-                    TheGurúCompany
-                  </span>{' '}
-                  I built the AI microservices architecture behind Utoppia,
-                  ChatO and WeWell — embeddings and vector search, retrieval,
-                  fine-tuned models, RPA workers and a custom flow builder for
-                  agent workflows.
+                  Today most of my work is{' '}
+                  <span className="text-primary font-semibold">agentic</span>:
+                  browser agents that read the web where no API exists,
+                  conversational agents that sell and support, voice agents
+                  that coach, and an engineering workflow where coding agents
+                  plan, build, test and deploy under my direction.
                 </motion.p>
 
                 <motion.p
@@ -236,7 +242,7 @@ const About = () => {
                     className={`bg-card p-6 rounded-lg border text-center group transition-all duration-300 cursor-pointer ${highlight.hoverBg} hover:shadow-xl hover:border-primary/20`}
                   >
                     <motion.div
-                      className={`inline-flex p-3 rounded-full mb-4 ${highlight.color} ${highlight.bgColor} group-hover:scale-110 transition-transform duration-300`}
+                      className={`inline-flex p-3 mb-4 ${highlight.color} ${highlight.bgColor} group-hover:scale-110 transition-transform duration-300`}
                       whileHover={{ rotate: 5 }}
                     >
                       <Icon size={24} className="text-current" />
@@ -275,18 +281,21 @@ const About = () => {
                   description:
                     'Shipped first production AI SaaS product on a custom LLM stack',
                   color: 'text-secondary',
+                  icon: Bot,
                 },
                 {
                   year: '2017',
                   description:
-                    "Built the platform behind Mexico's first MVNO — 25K+ subscribers",
+                    "Built the platform behind Mexico's first MVNO, 25K+ subscribers",
                   color: 'text-accent',
+                  icon: RadioTower,
                 },
                 {
                   year: '2013',
                   description:
                     'MIT Megacity Logistics Lab contributor, ITESM graduate',
                   color: 'text-primary',
+                  icon: GraduationCap,
                 },
               ].map((achievement, index) => (
                 <motion.div
@@ -296,6 +305,10 @@ const About = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ delay: index * 0.2 }}
                 >
+                  <achievement.icon
+                    size={22}
+                    className={`mx-auto mb-3 ${achievement.color}`}
+                  />
                   <motion.div
                     className={`text-3xl md:text-4xl font-bold mb-2 ${achievement.color} group-hover:scale-110 transition-transform duration-300`}
                     whileHover={{ y: -2 }}
