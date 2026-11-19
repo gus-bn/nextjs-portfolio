@@ -8,7 +8,7 @@ import type { Availability, AvailabilityResult, TimeRange } from '@/lib/availabi
 import { cn } from '@/lib/utils';
 
 /**
- * My coming two weeks as a week grid that shows only when I am busy.
+ * My calendar in whole weeks, Monday to Sunday, as a week grid that shows only when I am busy.
  * Available time is left empty on purpose: nothing here is booked, it is
  * just my availability. Live: it re-reads every minute and whenever the tab
  * comes back.
@@ -22,8 +22,8 @@ const HOUR_PX = 64;
 const GAP_PX = 2;
 const REFRESH_MS = 60_000;
 const DAY = 1440;
-/** Every day, in my own time zone. I am busy then even when no event says so. */
-const LUNCH = { from: 13 * 60, to: 14 * 60 };
+/** Monday to Friday, in my own time zone. I am busy then even when no event says so. */
+const LUNCH = { from: 13 * 60, to: 14 * 60, weekdays: [1, 2, 3, 4, 5] };
 
 /** Minutes since local midnight, end exclusive. */
 interface Span {
@@ -157,6 +157,7 @@ function buildDays(data: Availability, timeZone: string): DayModel[] {
   const lunch = new Map<string, Span[]>();
   for (const day of data.days) {
     day.busy.forEach((range) => split(range, timeZone, busy));
+    if (!LUNCH.weekdays.includes(at(day.date).getUTCDay())) continue;
     const range = {
       start: instant(day.date, LUNCH.from, data.time_zone).toISOString(),
       end: instant(day.date, LUNCH.to, data.time_zone).toISOString(),
@@ -372,6 +373,7 @@ export function AvailabilityView({
   const zone = useMine && differs && viewerZone ? viewerZone : homeZone;
   const days = useMemo(() => (data ? buildDays(data, zone) : []), [data, zone]);
   const today = parts(now, zone);
+  // The API answers from Monday of the current week, so pages are Mon-Sun.
   const pages = Math.max(1, Math.ceil(days.length / WEEK));
   const safePage = Math.min(page, pages - 1);
   const week = days.slice(safePage * WEEK, safePage * WEEK + WEEK);
@@ -448,7 +450,7 @@ export function AvailabilityView({
             </button>
             {safePage > 0 && (
               <button type="button" className="sched-btn" onClick={() => setPage(0)}>
-                Today
+                This week
               </button>
             )}
           </div>
