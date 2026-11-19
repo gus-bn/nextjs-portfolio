@@ -4,8 +4,8 @@ import type { NextConfig } from 'next';
 import 'dotenv-safe/config';
 
 const nextConfig: NextConfig = {
-  // Static export for SEO optimization
-  output: 'export',
+  // Not a static export: /availability renders on the server so the
+  // ChecaTurno API key stays there. Every other page is still prerendered.
 
   // Enable experimental features for better performance
   experimental: {
@@ -22,6 +22,16 @@ const nextConfig: NextConfig = {
 
   // Performance optimizations
   poweredByHeader: false,
+
+  // The unlisted availability page: never indexed, even if a link leaks.
+  async headers() {
+    return [
+      {
+        source: '/availability',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' }],
+      },
+    ];
+  },
 
   // Bundle analyzer (optional, can be enabled for debugging)
   // bundlePagesRouterDependencies: true,
