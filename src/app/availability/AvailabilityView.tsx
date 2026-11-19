@@ -22,6 +22,8 @@ const HOUR_PX = 64;
 const GAP_PX = 2;
 const REFRESH_MS = 60_000;
 const DAY = 1440;
+/** Every day, in my own time zone. I am busy then even when no event says so. */
+const LUNCH = { from: 13 * 60, to: 14 * 60 };
 
 /** Minutes since local midnight, end exclusive. */
 interface Span {
@@ -29,9 +31,13 @@ interface Span {
   to: number;
 }
 
+interface Block extends Span {
+  kind: 'busy' | 'lunch';
+}
+
 interface DayModel {
   date: string;
-  busy: Span[];
+  blocks: Block[];
 }
 
 // --- time --------------------------------------------------------------------
@@ -126,23 +132,61 @@ function clockTime(instant: Date, timeZone: string): string {
   });
 }
 
+/** The instant a wall-clock time on a date is in a zone (no DST in Mexico). */
+function instant(date: string, minutes: number, timeZone: string): Date {
+  const guess = new Date(`${date}T00:00:00Z`).getTime() + minutes * 60_000;
+  const seen = parts(new Date(guess), timeZone);
+  const seenAt = new Date(`${seen.date}T00:00:00Z`).getTime() + seen.minutes * 60_000;
+  return new Date(guess - (seenAt - guess));
+}
+
+function subtract(spans: Span[], cut: Span): Span[] {
+  return spans.flatMap((span) => {
+    if (cut.to <= span.from || cut.from >= span.to) return [span];
+    const rest: Span[] = [];
+    if (span.from < cut.from) rest.push({ from: span.from, to: cut.from });
+    if (cut.to < span.to) rest.push({ from: cut.to, to: span.to });
+    return rest;
+  });
+}
+
 // --- the model ---------------------------------------------------------------
 
 function buildDays(data: Availability, timeZone: string): DayModel[] {
   const busy = new Map<string, Span[]>();
-  for (const day of data.days) day.busy.forEach((range) => split(range, timeZone, busy));
-  return data.days.map(({ date }) => ({ date, busy: merge(busy.get(date) ?? []) }));
+  const lunch = new Map<string, Span[]>();
+  for (const day of data.days) {
+    day.busy.forEach((range) => split(range, timeZone, busy));
+    const range = {
+      start: instant(day.date, LUNCH.from, data.time_zone).toISOString(),
+      end: instant(day.date, LUNCH.to, data.time_zone).toISOString(),
+    };
+    split(range, timeZone, lunch);
+  }
+  return data.days.map(({ date }) => {
+    const lunches = merge(lunch.get(date) ?? []);
+    // Meetings that run into lunch are drawn around it.
+    const meetings = lunches.reduce((spans, cut) => subtract(spans, cut), merge(busy.get(date) ?? []));
+    const blocks: Block[] = [
+      ...meetings.map((span) => ({ ...span, kind: 'busy' as const })),
+      ...lunches.map((span) => ({ ...span, kind: 'lunch' as const })),
+    ].sort((a, b) => a.from - b.from);
+    return { date, blocks };
+  });
 }
 
-/** Busy time inside the hours the grid shows. */
-function visibleBusy(day: DayModel): Span[] {
-  return day.busy
-    .map((span) => ({
-      from: Math.max(span.from, FIRST_HOUR * 60),
-      to: Math.min(span.to, LAST_HOUR * 60),
+/** Blocks inside the hours the grid shows. */
+function visibleBlocks(day: DayModel): Block[] {
+  return day.blocks
+    .map((block) => ({
+      ...block,
+      from: Math.max(block.from, FIRST_HOUR * 60),
+      to: Math.min(block.to, LAST_HOUR * 60),
     }))
-    .filter((span) => span.to > span.from);
+    .filter((block) => block.to > block.from);
 }
+
+const LABEL = { busy: 'Busy', lunch: 'Lunch' } as const;
 
 // --- the grid ----------------------------------------------------------------
 
@@ -156,15 +200,16 @@ function DayColumn({ day, nowMinute }: { day: DayModel; nowMinute: number | null
 
   return (
     <div className="absolute inset-0">
-      {visibleBusy(day).map((block) => (
+      {visibleBlocks(day).map((block) => (
         <div
           key={block.from}
           data-past={nowMinute !== null && block.to <= nowMinute}
-          title={`Busy ${hhmm(block.from)} to ${hhmm(block.to)}`}
+          title={`${LABEL[block.kind]} ${hhmm(block.from)} to ${hhmm(block.to)}`}
           style={place(block.from, block.to)}
+          data-kind={block.kind}
           className="sched-busy absolute inset-x-1 overflow-hidden rounded-md px-2 py-1 text-xs leading-tight font-semibold"
         >
-          Busy
+          {LABEL[block.kind]}
           {block.to - block.from >= 45 && (
             <span className="block font-medium tabular-nums">
               {hhmm(block.from)} to {hhmm(block.to)}
@@ -238,8 +283,10 @@ function WeekGrid({
             key={day.date}
             role="group"
             aria-label={`${longDate(day.date)}: ${
-              day.busy.length
-                ? day.busy.map((b) => `busy ${hhmm(b.from)} to ${hhmm(b.to)}`).join(', ')
+              day.blocks.length
+                ? day.blocks
+                    .map((b) => `${LABEL[b.kind].toLowerCase()} ${hhmm(b.from)} to ${hhmm(b.to)}`)
+                    .join(', ')
                 : 'available'
             }`}
             className="relative min-w-0 border-l border-[var(--s-line)]"
@@ -336,9 +383,15 @@ export function AvailabilityView({
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{name}&apos;s schedule</h1>
-          <p className="mt-2 flex items-center gap-2 text-sm font-medium text-[var(--s-muted)]">
+          <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-[var(--s-muted)]">
             <span aria-hidden className="sched-busy inline-block h-3.5 w-3.5 rounded-[4px]" />
-            Busy. Everything else, I&apos;m available.
+            Busy
+            <span
+              aria-hidden
+              data-kind="lunch"
+              className="sched-busy ml-2 inline-block h-3.5 w-3.5 rounded-[4px]"
+            />
+            Lunch. Everything else, I&apos;m available.
           </p>
         </div>
         <div className="flex items-center gap-3">

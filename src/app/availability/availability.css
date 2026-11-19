@@ -14,6 +14,8 @@
   --s-muted: #3f3f46;
   --s-busy: #dc2626;
   --s-busy-text: #ffffff;
+  --s-lunch: #c2410c;
+  --s-lunch-text: #ffffff;
   --s-today: #dc2626;
   --s-now: #2563eb;
   --s-control: #ffffff;
@@ -36,6 +38,8 @@
   --s-muted: #d4d4d8;
   --s-busy: #ef4444;
   --s-busy-text: #ffffff;
+  --s-lunch: #f97316;
+  --s-lunch-text: #09090b;
   --s-today: #ef4444;
   --s-now: #3b82f6;
   --s-control: #27272a;
@@ -81,6 +85,10 @@
 .sched-busy {
   background: var(--s-busy);
   color: var(--s-busy-text);
+}
+.sched-busy[data-kind='lunch'] {
+  background: var(--s-lunch);
+  color: var(--s-lunch-text);
 }
 .sched-busy[data-past='true'] {
   opacity: 0.4;
