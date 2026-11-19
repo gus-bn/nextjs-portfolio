@@ -30,9 +30,8 @@ export type AvailabilityResult =
   | { ok: false; reason: 'not_configured' | 'unavailable' };
 
 const DEFAULT_API_URL = 'https://api.checaturno.mx/v1';
-/** How long a fetched answer is reused. Google is asked at most this often. */
-export const REVALIDATE_SECONDS = 300;
 const DAYS = 14;
+
 
 export async function fetchAvailability(): Promise<AvailabilityResult> {
   const key = process.env.CHECATURNO_API_KEY;
@@ -41,7 +40,8 @@ export async function fetchAvailability(): Promise<AvailabilityResult> {
   try {
     const response = await fetch(`${base}/admin/calendar/busy?days=${DAYS}`, {
       headers: { Authorization: `Bearer ${key}`, Accept: 'application/json' },
-      next: { revalidate: REVALIDATE_SECONDS },
+      // Live on every request: the page and its /availability/data poll.
+      cache: 'no-store',
       signal: AbortSignal.timeout(15_000),
     });
     if (!response.ok) {

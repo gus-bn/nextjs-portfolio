@@ -1,0 +1,188 @@
+/* The schedule page, after the ChecaTurno console's calendar preview: a week
+   of half-hour tiles, green where I am free, busy time as plain blocks, a red
+   line for now. Its own tokens, light and dark (next-themes puts `dark` on
+   <html>), so the page owns its look without touching the portfolio's. */
+.sched {
+  --s-bg: #f4f3ef;
+  --s-surface: #ffffff;
+  --s-sunken: #ecebe6;
+  --s-border: #e2e0d8;
+  --s-text: #15161a;
+  --s-muted: #5d5f66;
+  --s-subtle: #8b8d93;
+  --s-free: #22c55e;
+  --s-free-text: #052e16;
+  --s-free-soft: #dcfce7;
+  --s-free-strong: #15803d;
+  --s-busy: #d9d8d2;
+  --s-busy-edge: #6b6d73;
+  --s-now: #ef4444;
+  --s-focus: #2563eb;
+  --s-hover: rgb(37 99 235 / 0.06);
+  --s-selected: rgb(37 99 235 / 0.1);
+  --s-shadow:
+    0 1px 2px rgb(16 18 24 / 0.06), 0 8px 24px -12px rgb(16 18 24 / 0.18);
+
+  min-height: 100dvh;
+  background: var(--s-bg);
+  color: var(--s-text);
+}
+:root.dark .sched {
+  --s-bg: #0b0c0e;
+  --s-surface: #131417;
+  --s-sunken: #1a1b1f;
+  --s-border: #26282d;
+  --s-text: #f2f2f0;
+  --s-muted: #a3a5ab;
+  --s-subtle: #6f7178;
+  --s-free: #22c55e;
+  --s-free-text: #03140a;
+  --s-free-soft: rgb(34 197 94 / 0.14);
+  --s-free-strong: #4ade80;
+  --s-busy: #2c2e34;
+  --s-busy-edge: #8b8d93;
+  --s-now: #f87171;
+  --s-focus: #60a5fa;
+  --s-hover: rgb(96 165 250 / 0.07);
+  --s-selected: rgb(96 165 250 / 0.12);
+  --s-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+}
+
+.sched-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sched-panel {
+  background: var(--s-surface);
+  border: 1px solid var(--s-border);
+  box-shadow: var(--s-shadow);
+}
+
+.sched-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--s-border);
+  background: var(--s-surface);
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--s-text);
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+.sched-btn:hover:not(:disabled) {
+  border-color: var(--s-subtle);
+}
+.sched-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.sched-btn:focus-visible,
+.sched-column:focus-visible {
+  outline: 2px solid var(--s-focus);
+  outline-offset: 2px;
+}
+
+.sched-tile[data-tone="free"] {
+  background: var(--s-free);
+  color: var(--s-free-text);
+}
+.sched-tile[data-tone="busy"] {
+  background: var(--s-busy);
+}
+.sched-tile[data-tone="past"] {
+  background: var(--s-sunken);
+  color: var(--s-subtle);
+  box-shadow: inset 0 0 0 1px var(--s-border);
+}
+.sched-block {
+  background: var(--s-busy);
+  border-left: 3px solid var(--s-busy-edge);
+  color: var(--s-text);
+}
+.sched-block[data-past="true"] {
+  opacity: 0.55;
+}
+
+.sched-column {
+  transition: background-color 120ms ease;
+}
+.sched-column:hover {
+  background: var(--s-hover);
+}
+.sched-column[aria-pressed="true"] {
+  background: var(--s-selected);
+  box-shadow: inset 0 0 0 2px var(--s-focus);
+}
+
+.sched-now {
+  background: var(--s-now);
+}
+.sched-now::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--s-now);
+}
+
+.sched-live {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--s-free);
+}
+.sched-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--s-free);
+  animation: sched-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.sched-live[data-state="error"] {
+  background: var(--s-now);
+}
+.sched-live[data-state="error"]::after {
+  display: none;
+}
+@keyframes sched-ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.sched-enter {
+  animation: sched-enter 380ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes sched-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sched-column,
+  .sched-btn {
+    transition: none;
+  }
+  .sched-live::after,
+  .sched-enter {
+    animation: none;
+  }
+}
