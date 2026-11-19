@@ -9,7 +9,7 @@ import type { Availability, AvailabilityResult, TimeRange } from '@/lib/availabi
 import { cn } from '@/lib/utils';
 
 /**
- * My calendar in whole weeks, Monday to Sunday, as a week grid that shows only when I am busy.
+ * My calendar week by week, Monday to Friday, as a grid that shows only when I am busy.
  * Available time is left empty on purpose: nothing here is booked, it is
  * just my availability. Live: it re-reads every minute and whenever the tab
  * comes back.
@@ -24,7 +24,9 @@ const GAP_PX = 2;
 const REFRESH_MS = 60_000;
 const DAY = 1440;
 /** Monday to Friday, in my own time zone. I am busy then even when no event says so. */
-const LUNCH = { from: 13 * 60, to: 14 * 60, weekdays: [1, 2, 3, 4, 5] };
+/** The days drawn: Monday to Friday. */
+const WORKDAYS = [1, 2, 3, 4, 5];
+const LUNCH = { from: 13 * 60, to: 14 * 60, weekdays: WORKDAYS };
 
 /** Minutes since local midnight, end exclusive. */
 interface Span {
@@ -374,10 +376,13 @@ export function AvailabilityView({
   const zone = useMine && differs && viewerZone ? viewerZone : homeZone;
   const days = useMemo(() => (data ? buildDays(data, zone) : []), [data, zone]);
   const today = parts(now, zone);
-  // The API answers from Monday of the current week, so pages are Mon-Sun.
+  // The API answers from Monday of the current week, so each page is one
+  // Mon-Sun week, of which only Monday to Friday is drawn.
   const pages = Math.max(1, Math.ceil(days.length / WEEK));
   const safePage = Math.min(page, pages - 1);
-  const week = days.slice(safePage * WEEK, safePage * WEEK + WEEK);
+  const week = days
+    .slice(safePage * WEEK, safePage * WEEK + WEEK)
+    .filter((day) => WORKDAYS.includes(at(day.date).getUTCDay()));
   const nowFor = (date: string) =>
     date === today.date ? today.minutes : date < today.date ? DAY : null;
 
