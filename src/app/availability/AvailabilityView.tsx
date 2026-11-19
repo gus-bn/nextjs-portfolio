@@ -117,13 +117,38 @@ function shortDate(date: string): string {
   return at(date).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
 }
 
-function zoneLabel(timeZone: string): string {
-  const city = timeZone.split('/').at(-1)?.replaceAll('_', ' ') ?? timeZone;
-  const offset =
+/** The zones offered, Mexico first. My own zone is the default. */
+const ZONES: { group: string; zones: { id: string; name: string }[] }[] = [
+  {
+    group: 'Mexico',
+    zones: [
+      { id: 'America/Mexico_City', name: 'Mexico City' },
+      { id: 'America/Cancun', name: 'Cancún' },
+      { id: 'America/Mazatlan', name: 'Mazatlán, Sinaloa' },
+      { id: 'America/Hermosillo', name: 'Hermosillo, Sonora' },
+      { id: 'America/Tijuana', name: 'Tijuana' },
+    ],
+  },
+  {
+    group: 'United States',
+    zones: [
+      { id: 'America/New_York', name: 'Eastern, New York' },
+      { id: 'America/Chicago', name: 'Central, Chicago' },
+      { id: 'America/Denver', name: 'Mountain, Denver' },
+      { id: 'America/Phoenix', name: 'Arizona, Phoenix' },
+      { id: 'America/Los_Angeles', name: 'Pacific, Los Angeles' },
+      { id: 'America/Anchorage', name: 'Alaska' },
+      { id: 'Pacific/Honolulu', name: 'Hawaii' },
+    ],
+  },
+];
+
+function offset(timeZone: string): string {
+  return (
     new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'shortOffset' })
       .formatToParts(new Date())
-      .find((part) => part.type === 'timeZoneName')?.value ?? '';
-  return `${city} ${offset}`.trim();
+      .find((part) => part.type === 'timeZoneName')?.value ?? ''
+  );
 }
 
 function clockTime(instant: Date, timeZone: string): string {
@@ -261,7 +286,7 @@ function WeekGrid({
               <span
                 className={cn(
                   'grid h-8 w-8 place-items-center rounded-full text-base font-bold tabular-nums',
-                  isToday && 'bg-[var(--s-today)] text-white',
+                  isToday && 'bg-[var(--s-today)] text-[var(--s-today-text)]',
                 )}
               >
                 {Number(day.date.slice(8))}
@@ -329,8 +354,7 @@ export function AvailabilityView({
   const [now, setNow] = useState(() =>
     initial.ok ? new Date(initial.data.generated_at) : new Date(),
   );
-  const [viewerZone, setViewerZone] = useState<string | null>(null);
-  const [useMine, setUseMine] = useState(false);
+  const [picked, setPicked] = useState<string | null>(null);
   const [page, setPage] = useState(0);
 
   const sync = useCallback(async () => {
@@ -354,7 +378,6 @@ export function AvailabilityView({
 
   // Live: the clock every second, the calendar every minute and on return.
   useEffect(() => {
-    setViewerZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
     setNow(new Date());
     if (initial.ok) setSyncedAt(new Date());
     const clock = setInterval(() => setNow(new Date()), 1000);
@@ -372,8 +395,7 @@ export function AvailabilityView({
 
   const data = result.ok ? result.data : null;
   const homeZone = data?.time_zone ?? 'America/Mexico_City';
-  const differs = viewerZone !== null && viewerZone !== homeZone;
-  const zone = useMine && differs && viewerZone ? viewerZone : homeZone;
+  const zone = picked ?? homeZone;
   const days = useMemo(() => (data ? buildDays(data, zone) : []), [data, zone]);
   const today = parts(now, zone);
   // The API answers from Monday of the current week, so each page is one
@@ -470,38 +492,29 @@ export function AvailabilityView({
             </p>
           )}
           <div className="sm:ml-auto">
-            {differs && viewerZone ? (
-              <div role="radiogroup" aria-label="Time zone" className="inline-flex gap-1.5">
-                {[
-                  { mine: false, label: zoneLabel(homeZone) },
-                  { mine: true, label: `Your time, ${zoneLabel(viewerZone)}` },
-                ].map((option) => (
-                  <button
-                    key={String(option.mine)}
-                    type="button"
-                    role="radio"
-                    aria-checked={useMine === option.mine}
-                    onClick={() => setUseMine(option.mine)}
-                    className={cn(
-                      'sched-btn',
-                      useMine === option.mine &&
-                        'border-[var(--s-band)] bg-[var(--s-band)] text-[var(--s-band-text)]',
-                    )}
-                  >
-                    {option.label}
-                  </button>
+            <label className="flex items-center gap-2 text-sm font-semibold text-[var(--s-muted)]">
+              Time zone
+              <select
+                className="sched-btn sched-select"
+                value={zone}
+                onChange={(event) => setPicked(event.target.value)}
+              >
+                {ZONES.map((group) => (
+                  <optgroup key={group.group} label={group.group}>
+                    {group.zones.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name} ({offset(option.id)})
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
-              </div>
-            ) : (
-              <span className="text-sm font-semibold text-[var(--s-muted)]">
-                {zoneLabel(zone)}
-              </span>
-            )}
+              </select>
+            </label>
           </div>
         </div>
       )}
       {data?.calendar_error && (
-        <p className="mb-4 rounded-lg bg-[var(--s-busy)] px-4 py-3 text-sm font-semibold text-white">
+        <p className="mb-4 rounded-lg bg-[var(--s-danger)] px-4 py-3 text-sm font-semibold text-white">
           One of my calendars is not answering right now, so some busy time may be missing.
         </p>
       )}

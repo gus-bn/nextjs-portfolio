@@ -1,50 +1,44 @@
-/* The schedule page. Solid colours on purpose: available time is a plain
-   white sheet (near black in dark mode) on a darker page, busy time is solid
-   red with white text, the day headers sit on an ink band, and now is a blue
-   line. next-themes puts `dark` on <html>. */
+/* The schedule page, in the site's own colours (globals.css): ink and paper
+   for the sheet and the day band, the site blue for busy time, the site green
+   for lunch and today, and an ink line for now. Solid on purpose. next-themes
+   puts `dark` on <html>, which also swaps the site tokens these read. */
 .sched {
-  --s-page: #e4e4e7;
-  --s-sheet: #ffffff;
-  --s-band: #18181b;
-  --s-band-text: #ffffff;
-  --s-band-muted: #a1a1aa;
-  --s-line: #d4d4d8;
-  --s-line-strong: #a1a1aa;
-  --s-text: #09090b;
-  --s-muted: #3f3f46;
-  --s-busy: #dc2626;
-  --s-busy-text: #ffffff;
-  --s-lunch: #c2410c;
-  --s-lunch-text: #ffffff;
-  --s-today: #dc2626;
-  --s-now: #2563eb;
-  --s-control: #ffffff;
-  --s-control-border: #a1a1aa;
-  --s-focus: #2563eb;
+  --s-page: hsl(var(--muted));
+  --s-sheet: hsl(var(--background));
+  --s-band: hsl(var(--primary));
+  --s-band-text: hsl(var(--primary-foreground));
+  --s-band-muted: hsl(var(--muted-foreground));
+  --s-line: hsl(var(--border));
+  --s-line-strong: hsl(0 0% 70%);
+  --s-text: hsl(var(--foreground));
+  --s-muted: hsl(0 0% 25%);
+  --s-busy: hsl(var(--secondary));
+  --s-busy-text: hsl(var(--secondary-foreground));
+  --s-lunch: hsl(var(--accent));
+  --s-lunch-text: hsl(var(--accent-foreground));
+  --s-today: hsl(var(--accent));
+  --s-today-text: hsl(var(--accent-foreground));
+  --s-now: hsl(var(--foreground));
+  --s-live: hsl(var(--accent));
+  --s-danger: #dc2626;
+  --s-control: hsl(var(--background));
+  --s-control-border: hsl(0 0% 70%);
+  --s-focus: hsl(var(--secondary));
 
   min-height: 100dvh;
   background: var(--s-page);
   color: var(--s-text);
 }
 :root.dark .sched {
-  --s-page: #000000;
-  --s-sheet: #18181b;
-  --s-band: #fafafa;
-  --s-band-text: #09090b;
-  --s-band-muted: #52525b;
-  --s-line: #3f3f46;
-  --s-line-strong: #71717a;
-  --s-text: #fafafa;
-  --s-muted: #d4d4d8;
-  --s-busy: #ef4444;
-  --s-busy-text: #ffffff;
-  --s-lunch: #f97316;
-  --s-lunch-text: #09090b;
-  --s-today: #ef4444;
-  --s-now: #3b82f6;
-  --s-control: #27272a;
-  --s-control-border: #71717a;
-  --s-focus: #60a5fa;
+  --s-page: hsl(0 0% 0%);
+  --s-band-muted: hsl(0 0% 32%);
+  --s-sheet: hsl(0 0% 8%);
+  --s-line: hsl(0 0% 20%);
+  --s-line-strong: hsl(0 0% 40%);
+  --s-muted: hsl(0 0% 80%);
+  --s-danger: #ef4444;
+  --s-control: hsl(0 0% 12%);
+  --s-control-border: hsl(0 0% 40%);
 }
 
 .sched-sheet {
@@ -114,18 +108,18 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 999px;
-  background: #16a34a;
+  background: var(--s-live);
 }
 .sched-live::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: #16a34a;
+  background: var(--s-live);
   animation: sched-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .sched-live[data-state='error'] {
-  background: var(--s-busy);
+  background: var(--s-danger);
 }
 .sched-live[data-state='error']::after {
   display: none;
@@ -142,4 +136,13 @@
   .sched-live::after {
     animation: none;
   }
+}
+
+.sched-select {
+  appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  cursor: pointer;
 }
