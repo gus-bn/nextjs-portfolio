@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Loader2, RefreshCw } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Loader2, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
 
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
@@ -384,6 +385,10 @@ export function AvailabilityView({
     <div className="mx-auto flex min-h-dvh max-w-[96rem] flex-col px-4 py-6 sm:px-8">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
+          <Link href="/" className="sched-btn mb-4 w-fit">
+            <ArrowLeft className="h-4 w-4" aria-hidden />
+            Back to {name}
+          </Link>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{name}&apos;s schedule</h1>
           <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-[var(--s-muted)]">
             <span aria-hidden className="sched-busy inline-block h-3.5 w-3.5 rounded-[4px]" />
